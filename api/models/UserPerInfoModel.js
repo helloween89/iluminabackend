@@ -4,6 +4,10 @@ var Schema = mongoose.Schema;
 
 
 var UserInfo = new Schema({
+    userid: {
+        type: String,
+        required: 'Please enter the username id'
+    },
     name: {
         type: String,
         required: 'Please enter your name'
@@ -28,7 +32,7 @@ var UserInfo = new Schema({
     },
     profession: {
         type: String,
-        required: 'Please enter your proffession'
+        required: 'Please enter your profession'
     },
     date: {
         type: Date,
@@ -36,4 +40,4 @@ var UserInfo = new Schema({
     },
 });
 
-module.exports = mongoose.model('User', UserInfo);
+module.exports = mongoose.model('Userinfo', UserInfo);

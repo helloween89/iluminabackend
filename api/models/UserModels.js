@@ -1,9 +1,9 @@
 'use strict';
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+let mongoose = require('mongoose');
+let Schema = mongoose.Schema;
 
 
-var UserInfo = new Schema({
+let User = new Schema({
     username: {
         type: String,
         required: 'Please enter an username'
@@ -25,4 +25,4 @@ var UserInfo = new Schema({
     },
 });
 
-module.exports = mongoose.model('User', UserInfo);
+module.exports = mongoose.model('Users', User);

@@ -1,6 +1,6 @@
 'use strict';
 module.exports = function (app) {
-    var user = require('../controllers/backControllers');
+    let user = require('../controllers/backControllers');
 
     // todoList Routes
     app.route('/user')
@@ -12,5 +12,10 @@ module.exports = function (app) {
 
     app.route('/auth/sign_in')
         .post(user.sign_in);
+
+    
+    app.route('/testimg')
+        .post(user.sendimgcomplete);
+        
 
 };

@@ -1,7 +1,7 @@
 'use strict';
 let mongoose = require('mongoose');
 let Schema = mongoose.Schema;
-
+let bcrypt = require('bcrypt');
 
 let User = new Schema({
     username: {
@@ -24,5 +24,9 @@ let User = new Schema({
         default: Date.now
     },
 });
+
+User.methods.comparePassword = function(password){
+    return bcrypt.compareSync(password, this.password);
+}
 
 module.exports = mongoose.model('Users', User);

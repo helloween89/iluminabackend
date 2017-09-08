@@ -5,18 +5,9 @@ let mongoose = require('mongoose'),
     bcrypt = require('bcrypt'),
     jwt = require('jsonwebtoken'),
     multer = require('multer'),
+    path = require("path"),
     Userinfo = mongoose.model('Userinfo');
 
-let storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, 'uploadedimages/')
-    },
-    filename: function (req, file, cb) {
-        cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
-    }
-});
-
-let upload = multer({ storage: storage });
 
 exports.create_user = function (req, res) {
     let new_user = new User(req.body);
@@ -33,27 +24,58 @@ exports.create_user = function (req, res) {
     });
 };
 
+exports.update_user = function(req, res){
+
+    //let userupdate = new User(req.body);
+    let encryptpass = bcrypt.hashSync(req.body.password, 10);
+    let tuser = req.body.typeuser;
+    let objupdate = {
+        password: encryptpass,
+        typeuser: tuser
+    }
+
+    User.findOneAndUpdate({ username: req.params.userId},{$set:objupdate}, {new: true}, function(err, user){
+
+        if (err) {
+
+            res.send(err);
+        
+        } else {
+            return res.json(user);
+        }
+
+    });
+    
+};
+
 exports.reg_pinfouser = function (req, res) {
     User.find({ username: req.params.userId}, function (err, task) {
         if (err){
             res.send(err);
         }else{
+
             let info_user = new Userinfo(req.body);
+            info_user.img = req.file.filename;
+            console.log(info_user.img);
+            
             info_user.save(function (err, task) {
                 if (err)
                     res.send(err);
                 res.json(task);
             });
+            
         }
     }).select('-__v');
 };
 
+/*
 exports.sendimgcomplete = function(req, res){
 
     console.log("file" + req.file);
     res.send('Successfully uploaded!');
 
 }
+*/
 
 exports.sign_in = function (req, res) {
     User.findOne({

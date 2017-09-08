@@ -30,6 +30,10 @@ var UserInfo = new Schema({
         type: String,
         required: 'Please enter your age'
     },
+    img: {
+        type: String,
+        required: "Please Upload a picture"
+    },
     profession: {
         type: String,
         required: 'Please enter your profession'

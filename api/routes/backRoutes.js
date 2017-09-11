@@ -21,13 +21,19 @@ let upload = multer({ storage: storage });
 
     // todoList Routes
     app.route('/userinfo/:userId')
-        .post(user.loginRequired,upload.single('fbimg'), user.reg_pinfouser);
+        .post(user.loginRequired,upload.single('img'), user.reg_pinfouser);
+
+    app.route('/userupdateinfo/:userId')
+        .post(user.loginRequired, upload.single('img'), user.update_regpinfouser);
 
     app.route('/auth/sign_in')
         .post(user.sign_in);
 
     app.route('/userupdate/:userId')
         .post(user.loginRequired,user.update_user);
+
+    app.route('/userdel/')
+        .post(user.loginRequired, user.delete_user);
 
     /*
     app.route('/testimg')

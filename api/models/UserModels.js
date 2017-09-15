@@ -6,6 +6,7 @@ let bcrypt = require('bcrypt');
 let User = new Schema({
     username: {
         type: String,
+        unique: true,
         required: 'Please enter an username'
     },
     password: {

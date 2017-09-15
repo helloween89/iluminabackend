@@ -9,19 +9,36 @@ let mongoose = require('mongoose'),
     Userinfo = mongoose.model('Userinfo');
 
 
-exports.create_user = function (req, res) {
-    let new_user = new User(req.body);
-    new_user.password = bcrypt.hashSync(req.body.password, 10);
-    new_user.save(function (err, user) {
-        if (err) {
-            return res.status(400).send({
-                message: err
+    exports.create_user = function (req, res) {
+        let new_user = new User(req.body);
+        new_user.password = bcrypt.hashSync(req.body.password, 10);
+
+            User.findOne({username: req.body.username}, function(err, user){
+
+                if(err){
+                   return err.send(err);
+                } else {
+                   
+                   if(user.usename != undefined) {
+                    new_user.save(function (err, user) {
+                       if (err) {
+                          return res.status(400).send({
+                          message: err
+                          });
+                       } else {
+                          new_user.password = undefined;
+                          return res.json(user);
+                       }
+                    });
+                   }else {
+                    return res.json({response:"User already Added"});
+                    //console.log(user.username);
+                   }
+        
+                } 
+
             });
-        } else {
-            new_user.password = undefined;
-            return res.json(user);
-        }
-    });
+
 };
 
 exports.update_user = function (req, res) {

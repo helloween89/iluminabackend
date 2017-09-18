@@ -1,1 +1,31 @@
-<app-add-user></app-add-user>
+<html>
+<head>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+</head>
+<body>
+  <div class="navbar-fixed">
+    <nav>
+      <div class="nav-wrapper grey lighten-5">
+        <a href="" class="brand-logo center show-on-medium left show-on-large show-on-small left black-text">Ilumina Users</a>
+        <ul id="nav-mobile" class="right">
+          <li><a href="" class="black-text">Profile</a></li>
+          <li><a href="" class="black-text">Messages<span class="new badge">4</span></a></li>
+          <li><a href="" class="black-text">Logout</a></li>
+        </ul> 
+      </div>
+    </nav>
+  </div>
+      <div class="row">
+      <div class="col xl3 s3 m3" style="margin-top:30px;">
+        <div class="section hoverable"><i class="small material-icons">person_add</i><span class="text-grey darken-2">Create User</span></div>
+        <div class="section hoverable"><i class="small material-icons">edit</i><span class="text-grey darken-2">Update User information</span></div>
+        <div class="section hoverable"><i class="small material-icons">search</i><span class="text-grey darken-2">Search Users</span></div>
+        <div class="section hoverable"><i class="small material-icons">close</i><span class="text-grey darken-2">Close Account</span></div>
+      </div>
+      <div class="col xl9 s9 m9 l9" id="container" style="margin-top:30px;">
+        <app-add-user></app-add-user>
+      </div> 
+    </div>
+</body>
+</html>

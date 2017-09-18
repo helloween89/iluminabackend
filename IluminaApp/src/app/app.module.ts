@@ -8,11 +8,13 @@ import { MaterializeModule } from 'angular2-materialize';
 import { AppComponent } from './app.component';
 import { EmitterService } from './services/emitter.service';
 import { AddUserComponent } from './add-user/add-user.component';
+import { SearchUserComponent } from './search-user/search-user.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    AddUserComponent
+    AddUserComponent,
+    SearchUserComponent
   ],
   imports: [
     BrowserModule,

@@ -1,39 +1,43 @@
-<!-- 
-Angular 2 CRUD application using Nodejs
-@autthor Shashank Tiwari
--->
+<html>
+<head>
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+	<div id="form">
+		<h4 class="center-align">Register a new User</h4>
+		<form class="col m12 l12 xl12">
+			<div class="row">
+				<div class="input-field col m8 l8 xl8 offset-s2 offset-m2 offset-l2 offset-xl2">
+					<input id="FirstName" type="text" class="validate">
+					<label for="FirstName">First Name</label>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="input-field col m8 l8 xl8 offset-s2 offset-m2 offset-l2 offset-xl2">
+					<input id="password" type="text" class="validate">
+					<label for="Password">Password</label>
+				</div>
+			</div>
 
-<h3 class="add-user-heading">Add/Upadte User </h3>
-<hr>
+			<div class="row">
+				<select class="browser-default col m8 l8 xl8 offset-s2 offset-m2 offset-l2 offset-xl2">
+					<option value="" disabled selected>Choose your option</option>
+					<option value="a1">Contrator</option>
+					<option value="a2">Regular</option>
+					<option value="admin">admin</option>
+				</select>
 
-	<div class="form-group">
-		Name : 
-		<input class="form-control"
-			type ="text"
-			placeholder="Your name here."
-			name= "name"
-			[(ngModel)]="userModel.name">
+			</div>
+
+			<div class="row">
+				<button class="btn waves-effect waves-light col m3 l3 xl3 offset-s2 offset-m4 offset-l4 offset-xl4" type="submit" name="action">Register
+					<i class="material-icons right">send</i>
+				</button>
+
+			</div>
+
+		</form>
 	</div>
-
-	<div class="form-group">
-		Gender : 
-		<select class="form-control" name="gender" [(ngModel)]="userModel.gender">
-			<option value='m'> Male </option>
-			<option value='f'> Female </option>
-		</select>
-	</div>
-
-	<div class="form-group">
-		Country : 
-		<input class="form-control"
-			type ="text"
-			placeholder="Your Country here."
-			name="country"
-			[(ngModel)]="userModel.country">
-	</div>
-
-	<div class="form-group">
-		<button *ngIf="isInsert" class="btn btn-primary" (click)="addUser()">Add User</button> 
-        <button  *ngIf="!isInsert" class="btn btn-primary" (click)="updateUser()">Update</button>
-		<button  class="btn " (click)="resetAddUser()">Reset</button>
-	</div>
+</body>
+</html>

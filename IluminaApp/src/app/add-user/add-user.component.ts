@@ -14,7 +14,7 @@ import { UserModel } from '../userModel';
 
 @Component({
   selector: 'app-add-user',
-  templateUrl: './test.html',
+  templateUrl: './add-user.component.html',
   styleUrls: ['./add-user.component.css'],
   providers: [ HttpService ]
 })

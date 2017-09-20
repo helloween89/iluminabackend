@@ -24,4 +24,9 @@ export class AppComponent {
 	constructor(private _emitterService: EmitterService) {
 		
 	}
+
+    public changeSelector(){
+    	
+    }
+
 }

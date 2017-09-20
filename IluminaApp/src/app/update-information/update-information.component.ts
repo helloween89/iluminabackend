@@ -7,11 +7,11 @@ import { EmitterService } from '../services/emitter.service';
 import { UserModel } from '../userModel';
 
 @Component({
-  selector: 'app-search-user',
-  templateUrl: './search-user.component.html',
-  styleUrls: ['./search-user.component.css']
+  selector: 'app-update-information',
+  templateUrl: './update-information.component.html',
+  styleUrls: ['./update-information.component.css']
 })
-export class SearchUserComponent implements OnInit {
+export class UpdateInformationComponent implements OnInit {
 
   constructor() { }
 

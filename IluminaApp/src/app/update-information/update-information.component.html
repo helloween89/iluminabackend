@@ -1,0 +1,77 @@
+<html>
+<head>
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+	<div id="form">
+		<h4 class="center-align">Updte User Information</h4>
+		<form class="col m12 l12 xl12">
+			<div class="row">
+				<div class="input-field col m8 l8 xl8 offset-s2 offset-m2 offset-l2 offset-xl2">
+					<input id="name" type="text" class="validate">
+					<label for="Name">Name</label>
+				</div>
+			</div>
+
+			<div class="row">
+				<select class="browser-default col m8 l8 xl8 offset-s2 offset-m2 offset-l2 offset-xl2">
+					<option value="" disabled selected>Choose your option</option>
+					<option value="single">Single</option>
+					<option value="married">Married</option>
+					<option value="divorced">Divorced</option>
+				</select>
+			</div>
+
+			<div class="row">
+				<select class="browser-default col m8 l8 xl8 offset-s2 offset-m2 offset-l2 offset-xl2">
+					<option value="" disabled selected>Choose your Gender</option>
+					<option value="male">Male</option>
+					<option value="female">Female</option>
+				</select>
+			</div>
+			
+			<div class="row">
+
+				<div class="col m8 l8 xl8 offset-s2 offset-m2 offset-l2 offset-xl2">
+
+					<label for="birthdate">Birthdate</label>
+					<input type="text" [(ngModel)]="birthdate" name="datepicker" materialize="pickadate" [materializeParams]="[{format:'dd/mm/yyyy'}]"/>
+
+				</div>
+
+			</div>
+
+			<div class="row">
+				<div class="col m8 l8 xl8 offset-s2 offset-m2 offset-l2 offset-xl2">
+					<form action="#">
+						<div class="file-field input-field">
+							<div class="btn">
+								<span>File</span>
+								<input type="file">
+							</div>
+							<div class="file-path-wrapper">
+								<input class="file-path validate" type="text">
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="input-field col m8 l8 xl8 offset-s2 offset-m2 offset-l2 offset-xl2">
+					<input id="profession" type="text" class="validate">
+					<label for="Profession">Profession</label>
+				</div>
+			</div>
+
+			<div class="row">
+				<button class="btn waves-effect waves-light col m3 l3 xl4 offset-m3 offset-l3 offset-xl4" type="submit" name="action">Update Profile Information
+					<i class="material-icons right">send</i>
+				</button>
+
+			</div>
+
+		</form>
+	</div>
+</body>
+</html>

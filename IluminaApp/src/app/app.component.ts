@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { AddUserComponent } from './add-user/add-user.component';
+import { SearchUserComponent} from './search-user/search-user.component';
+
 
 import { EmitterService } from './services/emitter.service';
 
@@ -19,5 +21,7 @@ export class AppComponent {
     private reset = 'CRUD_RESET_FORM';
     private userList = 'CRUD_USER_LIST';	
 
-	constructor(private _emitterService: EmitterService) {}
+	constructor(private _emitterService: EmitterService) {
+		
+	}
 }

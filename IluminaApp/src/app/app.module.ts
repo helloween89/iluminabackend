@@ -9,12 +9,14 @@ import { AppComponent } from './app.component';
 import { EmitterService } from './services/emitter.service';
 import { AddUserComponent } from './add-user/add-user.component';
 import { SearchUserComponent } from './search-user/search-user.component';
+import { UpdateInformationComponent } from './update-information/update-information.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AddUserComponent,
-    SearchUserComponent
+    SearchUserComponent,
+    UpdateInformationComponent
   ],
   imports: [
     BrowserModule,

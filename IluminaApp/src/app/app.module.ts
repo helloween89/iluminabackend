@@ -4,12 +4,30 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import 'materialize-css';
 import { MaterializeModule } from 'angular2-materialize';
+import { Routes, RouterModule} from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { EmitterService } from './services/emitter.service';
 import { AddUserComponent } from './add-user/add-user.component';
 import { SearchUserComponent } from './search-user/search-user.component';
 import { UpdateInformationComponent } from './update-information/update-information.component';
+
+// Define the routes
+const ROUTES = [
+  {
+    path: '',
+    redirectTo: 'adduser',
+    pathMatch: 'full'
+  },
+  {
+    path: 'adduser',
+    component: AddUserComponent
+  },
+  {
+    path: 'updateinfouser',
+    component: UpdateInformationComponent
+  }
+];
 
 @NgModule({
   declarations: [
@@ -22,7 +40,8 @@ import { UpdateInformationComponent } from './update-information/update-informat
     BrowserModule,
     FormsModule,
     MaterializeModule,
-    HttpModule  
+    HttpModule,
+    RouterModule.forRoot(ROUTES)  
   ],
   providers: [EmitterService],
   bootstrap: [AppComponent]

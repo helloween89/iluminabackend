@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { AddUserComponent } from './add-user/add-user.component';
 import { SearchUserComponent} from './search-user/search-user.component';
-
-
+import { FormsModule } from '@angular/forms';
+import * as _ from "lodash";
 import { EmitterService } from './services/emitter.service';
 
 
@@ -25,8 +25,20 @@ export class AppComponent {
 		
 	}
 
-    public changeSelector(){
-    	
-    }
+    toggleNav(event):void {
+    let allElements = document.getElementsByClassName('selector');
+    if(allElements.length > 0)
+      	
+      _.each(allElements, (element) => {
+        element.classList.remove("selector");
+      });
+  	console.log("target:",event.target);
+  	console.log("parent:",event.target.parentElement);
+
+  	if(event.target.tagName.toLowerCase() === "div")
+  		event.target.classList.add('selector');
+  	else
+  		event.target.parentElement.classList.add('selector');
+  }
 
 }

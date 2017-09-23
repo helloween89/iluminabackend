@@ -6,40 +6,25 @@ let mongoose = require('mongoose'),
     jwt = require('jsonwebtoken'),
     multer = require('multer'),
     path = require("path"),
-    Userinfo = mongoose.model('Userinfo');
+    Client = mongoose.model('ClientModel');
 
 
     exports.create_user = function (req, res) {
+        console.log("user: ", req.body);
         let new_user = new User(req.body);
         new_user.password = bcrypt.hashSync(req.body.password, 10);
+        new_user.img = req.file.filename;
+        console.log(new_user.img);
 
-            User.findOne({username: req.body.username}, function(err, user){
+        new_user.save(function (err, user) {
+            if (err) {
+                return res.status(501).json(err);
+            } 
+            new_user.password = undefined;
+            return res.status(201).json(user);
+        });
 
-                if(err){
-                   return err.send(err);
-                } else {
-                   
-                   if(user.usename != undefined) {
-                    new_user.save(function (err, user) {
-                       if (err) {
-                          return res.status(400).send({
-                          message: err
-                          });
-                       } else {
-                          new_user.password = undefined;
-                          return res.json(user);
-                       }
-                    });
-                   }else {
-                    return res.json({response:"User already Added"});
-                    //console.log(user.username);
-                   }
-        
-                } 
-
-            });
-
-};
+    };
 
 exports.update_user = function (req, res) {
 
@@ -55,16 +40,33 @@ exports.update_user = function (req, res) {
 
         if (err) {
 
-            res.send(err);
+            return res.status(501).json(err);
 
         } else {
-            return res.json(user);
+
+            return res.status(201).json(user);
+
         }
 
     });
 
 };
 
+exports.create_client = function (req, res) {
+        //console.log("user: ", req.body);
+        let new_client = new Client(req.body);
+        
+        new_client.save(function (err, client) {
+            if (err) {
+                //console.log({'err': err});
+                return res.status(501).json(err);
+            } 
+            return res.status(201).json(client);
+        });
+
+    };
+
+/*
 exports.reg_pinfouser = function (req, res) {
     User.find({ username: req.params.userId }, function (err, task) {
         if (err) {
@@ -84,7 +86,9 @@ exports.reg_pinfouser = function (req, res) {
         }
     }).select('-__v');
 };
+*/
 
+/*
 exports.update_regpinfouser = function (req, res) {
     User.find({ username: req.params.userId }, function (err, task) {
         if (err) {
@@ -125,7 +129,10 @@ exports.update_regpinfouser = function (req, res) {
         }
     }).select('-__v');
 };
+*/
 
+
+/*
 exports.delete_user = function (req, res) {
 
         User.findOneAndRemove({ username: req.body.username }, function (err, user) {
@@ -149,6 +156,7 @@ exports.delete_user = function (req, res) {
         //res.send({success: "User deleted sucessfully"});
 
 };
+*/
 
 /*
 exports.sendimgcomplete = function(req, res){

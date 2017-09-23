@@ -17,23 +17,26 @@ let upload = multer({ storage: storage });
 
     // todoList Routes
     app.route('/user')
-        .post(user.create_user);
+        .post(upload.single('img'), user.create_user);
 
     // todoList Routes
-    app.route('/userinfo/:userId')
-        .post(user.loginRequired,upload.single('img'), user.reg_pinfouser);
+    app.route('/client')
+        .post(user.loginRequired, user.create_client);
 
-    app.route('/userupdateinfo/:userId')
+/*
+    app.route('/clientupdate/:userId')
         .post(user.loginRequired, upload.single('img'), user.update_regpinfouser);
+        */
 
     app.route('/auth/sign_in')
         .post(user.sign_in);
 
     app.route('/userupdate/:userId')
         .post(user.loginRequired,user.update_user);
-
+/*
     app.route('/userdel/')
         .post(user.loginRequired, user.delete_user);
+        */
 
     /*
     app.route('/testimg')

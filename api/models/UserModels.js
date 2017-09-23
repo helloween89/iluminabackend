@@ -13,6 +13,10 @@ let User = new Schema({
         type: String,
         required: 'Please enter the password'
     },
+    img: {
+        type: String,
+        required: "Please Upload a picture"
+    },
     typeuser: {
         type: [{
             type: String,

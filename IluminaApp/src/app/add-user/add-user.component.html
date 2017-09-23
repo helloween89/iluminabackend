@@ -6,22 +6,23 @@
 	<div id="form">
 		<h4 class="center-align">Register a new User</h4>
 		<form class="col m12 l12 xl12">
+
 			<div class="row">
-				<div class="input-field col m8 l8 xl8 offset-s2 offset-m2 offset-l2 offset-xl2">
-					<input id="FirstName" type="text" class="validate">
-					<label for="FirstName">First Name</label>
+				<div class="input-field col m8 l8 xl8 offset-s2 offset-m2 offset-l2 offset-xl2 form-control">
+					<input name="username" type="text" class="validate" [(ngModel)]="userModel.username">
+					<label for="Username">Username</label>
 				</div>
 			</div>
 			
 			<div class="row">
-				<div class="input-field col m8 l8 xl8 offset-s2 offset-m2 offset-l2 offset-xl2">
-					<input id="password" type="text" class="validate">
+				<div class="input-field col m8 l8 xl8 offset-s2 offset-m2 offset-l2 offset-xl2 form-control">
+					<input name="password" [(ngModel)]="userModel.password" type="password" class="validate">
 					<label for="Password">Password</label>
 				</div>
 			</div>
-
+			
 			<div class="row">
-				<select class="browser-default col m8 l8 xl8 offset-s2 offset-m2 offset-l2 offset-xl2">
+				<select class="browser-default col m8 l8 xl8 offset-s2 offset-m2 offset-l2 offset-xl2 form-control" name="gender" [(ngModel)]="userModel.gender">
 					<option value="" disabled selected>Choose your option</option>
 					<option value="a1">Contrator</option>
 					<option value="a2">Regular</option>
@@ -31,7 +32,24 @@
 			</div>
 
 			<div class="row">
-				<button class="btn waves-effect waves-light col m3 l3 xl3 offset-s2 offset-m4 offset-l4 offset-xl4" type="submit" name="action">Register
+				<div class="col m8 l8 xl8 offset-s2 offset-m2 offset-l2 offset-xl2">
+					<form action="#">
+						<div class="file-field input-field form-control">
+							<div class="btn">
+								<span>Picture</span>
+								<input type="file">
+								<input type="file" />
+							</div>
+							<div class="file-path-wrapper">
+								<input class="file-path validate" type="text" name="img" ng2FileSelect [uploader]="uploader">
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+
+			<div class="row">
+				<button class="btn waves-effect waves-light col m3 l3 xl3 offset-s2 offset-m4 offset-l4 offset-xl4" type="submit" name="action" (click)="addUser()">Register
 					<i class="material-icons right">send</i>
 				</button>
 

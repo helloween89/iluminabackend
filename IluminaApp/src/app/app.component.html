@@ -18,14 +18,20 @@
   </div>
       <div class="row">
       <div class="col xl3 s3 m3" style="margin-top:30px;">
-        <div class="section selector" (click)="toggleNav($event); $event.stopPropagation()" routerLink="adduser">
+
+        <div class="section selector cursor-hover" (click)="toggleNav($event); $event.stopPropagation()" routerLink="adduser">
           <i class="small material-icons">person_add</i>
           <span class="text-grey darken-2">Create User</span>
         </div>
-        <div class="section " (click)="toggleNav($event); $event.stopPropagation()" routerLink="updateinfouser"><i class="small material-icons">edit</i><span class="text-grey darken-2" >Update User information</span></div>
-        <div class="section" (click)="toggleNav($event); $event.stopPropagation()"><i class="small material-icons">search</i><span class="text-grey darken-2">Search Users</span></div>
-        <div class="section" id="item4" (click)="toggleNav($event); $event.stopPropagation()"><i class="small material-icons">close</i><span class="text-grey darken-2">Close Account</span></div>
+
+        <div class="section cursor-hover" (click)="toggleNav($event); $event.stopPropagation()" routerLink="addclient"><i class="small material-icons">edit</i><span class="text-grey darken-2" >Add a client</span></div>
+
+        <div class="section cursor-hover" (click)="toggleNav($event); $event.stopPropagation()" routerLink="searchuser"><i class="small material-icons">search</i><span class="text-grey darken-2">Search Users</span></div>
+
+        <div class="section cursor-hover" id="item4" (click)="toggleNav($event); $event.stopPropagation()"><i class="small material-icons">close</i><span class="text-grey darken-2">Close Account</span></div>
+
       </div>
+
       <div class="col xl9 s9 m9 l9" id="container" style="margin-top:30px;">
         <router-outlet></router-outlet>
       </div> 

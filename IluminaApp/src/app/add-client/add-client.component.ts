@@ -7,11 +7,11 @@ import { EmitterService } from '../services/emitter.service';
 import { UserModel } from '../userModel';
 
 @Component({
-  selector: 'app-update-information',
-  templateUrl: './update-information.component.html',
-  styleUrls: ['./update-information.component.css']
+  selector: 'add-client.information',
+  templateUrl: './add-client.component.html',
+  styleUrls: ['./add-client.component.css']
 })
-export class UpdateInformationComponent implements OnInit {
+export class addClientComponent implements OnInit {
 
   constructor() { }
 

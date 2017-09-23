@@ -12,3 +12,7 @@ i.material-icons{
 .selector{
 	color: red;
 }
+
+.cursor-hover:hover {
+	cursor: pointer;
+}

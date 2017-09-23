@@ -5,12 +5,13 @@ import { HttpModule } from '@angular/http';
 import 'materialize-css';
 import { MaterializeModule } from 'angular2-materialize';
 import { Routes, RouterModule} from '@angular/router';
+import { FileSelectDirective } from 'ng2-file-upload';
 
 import { AppComponent } from './app.component';
 import { EmitterService } from './services/emitter.service';
 import { AddUserComponent } from './add-user/add-user.component';
 import { SearchUserComponent } from './search-user/search-user.component';
-import { UpdateInformationComponent } from './update-information/update-information.component';
+import { addClientComponent } from './add-client/add-client.component';
 
 // Define the routes
 const ROUTES = [
@@ -24,17 +25,22 @@ const ROUTES = [
     component: AddUserComponent
   },
   {
-    path: 'updateinfouser',
-    component: UpdateInformationComponent
+    path: 'addclient',
+    component: addClientComponent
+  },
+  {
+    path: 'searchuser',
+    component: SearchUserComponent
   }
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
+    FileSelectDirective,
     AddUserComponent,
     SearchUserComponent,
-    UpdateInformationComponent
+    addClientComponent
   ],
   imports: [
     BrowserModule,

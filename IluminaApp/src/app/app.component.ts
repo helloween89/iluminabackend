@@ -32,6 +32,7 @@ export class AppComponent {
       _.each(allElements, (element) => {
         element.classList.remove("selector");
       });
+  
   	console.log("target:",event.target);
   	console.log("parent:",event.target.parentElement);
 

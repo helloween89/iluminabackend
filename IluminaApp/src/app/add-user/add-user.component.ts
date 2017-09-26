@@ -1,13 +1,14 @@
 /*
 * Angular 2 CRUD application using Nodejs
-* @autthor Shashank Tiwari
 */
 
-
-import { Component,Input, OnChanges } from '@angular/core';
+import { Component,Input, OnChanges,  ElementRef, EventEmitter } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpService } from '../services/http.service';
 import { UserModel } from '../userModel';
+import {  FileUploader } from 'ng2-file-upload/ng2-file-upload';
+import { MaterializeDirective, MaterializeAction } from 'angular2-materialize';
+import * as Materialize from 'angular2-materialize';
 
 @Component({
   selector: 'app-add-user',
@@ -15,27 +16,31 @@ import { UserModel } from '../userModel';
   styleUrls: ['./add-user.component.css'],
   providers: [ HttpService ]
 })
+
 export class AddUserComponent {
 
 
 	private isInsert:boolean = true;
 	private userModel:UserModel = new UserModel('','','');
+	modalActions1 = new EventEmitter<string|MaterializeAction>();
 
-
-	constructor(
-			private httpService: HttpService
-		) {}
+	constructor(private httpService: HttpService, private el: ElementRef) {}
 
 	public addUser(): void {
-		this.httpService.addUser(this.userModel).subscribe(
+		let inputEl: HTMLInputElement = this.el.nativeElement.querySelector('#img');
+		console.log(inputEl);
+		this.httpService.addUser(this.userModel, inputEl).subscribe(
                         response =>  {
 	                      console.log(response);
-	                      alert("The user was created successfully");
+	                      Materialize.toast("The user was created successfully");
 	                      this.resetAddUser(); 
                         },
                         error=> {
                         	//console.log(error.errmsg);
-                       		alert("The user was already added"+JSON.stringify(error));
+                       		Materialize.toast(error.message, 4000);
+                       		this.modalActions1.emit({action:"modal",params:['open']});
+
+                       		
                        	}
                     );
 	}

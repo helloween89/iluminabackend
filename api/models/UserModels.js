@@ -28,10 +28,21 @@ let User = new Schema({
         type: Date,
         default: Date.now
     },
-});
+}, { emitIndexErrors: true });
 
 User.methods.comparePassword = function(password){
     return bcrypt.compareSync(password, this.password);
 }
 
+var handleDuplicate = function(error, res, next) {
+  if (error.name === 'MongoError' && error.code === 11000) {
+   //console.log(error.name);
+   let status = {"message":"User Already exist"};
+    next(status);
+  } else {
+    next();
+  }
+};
+
+User.post('save', handleDuplicate);
 module.exports = mongoose.model('Users', User);

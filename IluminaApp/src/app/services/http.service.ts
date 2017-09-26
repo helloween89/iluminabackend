@@ -3,7 +3,7 @@
 * @autthor Shashank Tiwari
 */
 
-import { Injectable } from '@angular/core';
+import { Injectable} from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { UserModel } from '../userModel';
 import {Observable} from 'rxjs/Rx';
@@ -29,21 +29,29 @@ export class HttpService {
 	public getAllUser(){
 		return this.http.get(`${this.BASE_URL}`)
 			.map((res:Response) => res.json())
-			.catch((error:any) => Observable.throw(error.json().error || 'Server error'));
+			.catch((error:any) => Observable.throw(error.json().error || 'Se	rver error'));
 	}
 
-	public addUser(body:UserModel){
+	public addUser(body:UserModel, inputEl:HTMLInputElement){
+
 		this.uploader.onAfterAddingFile = (file)=> { file.withCredentials = false; };
 		this.uploader.onCompleteItem = (item:any, response:any, status:any, headers:any) => {
-            console.log("ImageUpload:uploaded:", item, status, response);
-        };
-		let options = new RequestOptions({
-        	headers: new Headers({ 'Content-Type': 'application/json;charset=UTF-8' }) 
-        });
-		return this.http.post(`${this.BASE_URL}`+ this.create_user,JSON.stringify(body), options)
-			.map((res:Response) => res.json())
-			.catch((error:any) => Observable.throw(error.json() || 'Server error'));
-	}
+			console.log("ImageUpload:uploaded:", item, status, response);
+		};
+
+        
+		let formData = new FormData();
+
+		formData.append('username',body.username);
+		formData.append('password',body.password);
+		formData.append('gender',body.gender);
+		formData.append('img', inputEl.files.item(0));
+		console.log(formData);
+
+        return this.http.post(`${this.BASE_URL}`+ this.create_user,formData)
+        .map((res:Response) => res.json())
+        .catch((error:any) => Observable.throw(error.json() || 'Server error'));
+    }
 
 	public updateUser(body:UserModel){
 

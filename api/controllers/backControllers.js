@@ -18,6 +18,7 @@ let mongoose = require('mongoose'),
 
         new_user.save(function (err, user) {
             if (err) {
+                console.log(err);
                 return res.status(501).json(err);
             } 
             new_user.password = undefined;

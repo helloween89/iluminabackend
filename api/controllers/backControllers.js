@@ -56,7 +56,6 @@ exports.update_user = function (req, res) {
 exports.create_client = function (req, res) {
         //console.log("user: ", req.body);
         let new_client = new Client(req.body);
-        
         new_client.save(function (err, client) {
             if (err) {
                 //console.log({'err': err});

@@ -6,6 +6,7 @@ var Schema = mongoose.Schema;
 var Client = new Schema({
     name: {
         type: String,
+        unique: true,
         required: 'Please enter your name'
     },
     status: {
@@ -36,4 +37,15 @@ var Client = new Schema({
     },
 });
 
+var handleDuplicate = function(error, res, next) {
+  if (error.name === 'MongoError' && error.code === 11000) {
+   //console.log(error.name);
+   let status = {"message":"Client Already exist"};
+    next(status);
+  } else {
+    next();
+  }
+};
+
+Client.post('save', handleDuplicate);
 module.exports = mongoose.model('ClientModel', Client);

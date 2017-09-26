@@ -8,6 +8,7 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { UserModel } from '../userModel';
 import {Observable} from 'rxjs/Rx';
 import {  FileUploader } from 'ng2-file-upload/ng2-file-upload';
+import * as moment from 'moment'; 
 
 
 // Import RxJs required methods
@@ -20,6 +21,7 @@ export class HttpService {
 
 	private BASE_URL:string = 'http://localhost:3000/';
 	private create_user:String ="user";
+	private create_client:String ="client";
 	private uploader:FileUploader = new FileUploader({url: this.BASE_URL+this.create_user, itemAlias: 'img'});
 
 	constructor(
@@ -53,18 +55,26 @@ export class HttpService {
         .catch((error:any) => Observable.throw(error.json() || 'Server error'));
     }
 
-	public updateUser(body:UserModel){
+	public addClient(body:UserModel) {
 
-        let options = new RequestOptions({
-        	headers: new Headers({ 'Content-Type': 'application/json;charset=UTF-8' }) 
-        });
+       let formData = new FormData();
+       let age;
 
-		return this.http.put(`${this.BASE_URL}${body['_id']}`,JSON.stringify(body), options)
-			.map((res:Response) => res.json())
-			.catch((error:any) => Observable.throw(error.json().error || 'Server error'));
+		formData.append('name',body.username);
+		formData.append('status',body.password);
+		formData.append('sex',body.gender);
+		formData.append('age',body.gender);
+		formData.append('profession',body.gender);
+
+/*
+        return this.http.post(`${this.BASE_URL}`+ this.create_client,formData)
+        .map((res:Response) => res.json())
+        .catch((error:any) => Observable.throw(error.json() || 'Server error'));
+        */
+
 	}
 
-	public deleteUser(usersID:string){
+	public deleteUser(usersID:string) {
 
         let options = new RequestOptions({
         	headers: new Headers({ 'Content-Type': 'application/json;charset=UTF-8' }) 

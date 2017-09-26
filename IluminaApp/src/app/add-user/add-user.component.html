@@ -55,14 +55,25 @@
 
 			</div>
 
-			<div id="modal1" class="modal bottom-sheet" materialize="modal" [materializeParams]="model1Params" [materializeActions]="modalActions1">
+			<!-- Modal Success Registration-->
+			<div id="modal1" class="modal" materialize="modal" [materializeParams]="model1Params" [materializeActions]="modalActions1">
 				<div class="modal-content">
-					<h4>Modal Header 1</h4>
-					<p>A bunch of text</p>
+				    <h4>Registration Message</h4>
+					<p>The user was created successfully</p>
 				</div>
 				<div class="modal-footer">
-					<a class="waves-effect waves-green btn-flat" (click)="closeModal1()">Close</a>
-					<a class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+					<a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" (onclick)="closeModalSuccess()">Ok</a>
+				</div>
+			</div>
+
+			<!-- Modal Fail Registration -->
+			<div id="modal2" class="modal" materialize="modal" [materializeParams]="model1Params" [materializeActions]="modalActions2">
+				<div class="modal-content">
+					<h4>Registration Message</h4>
+					<p>{{errorMesage}}</p>
+				</div>
+				<div class="modal-footer">
+					<a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
 				</div>
 			</div>
 

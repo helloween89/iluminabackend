@@ -8,13 +8,13 @@
 		<form class="col m12 l12 xl12">
 			<div class="row">
 				<div class="input-field col m8 l8 xl8 offset-s2 offset-m2 offset-l2 offset-xl2">
-					<input id="name" type="text" class="validate">
+					<input id="name" type="text" class="validate" [(ngModel)]="clientModel.name">
 					<label for="Name">Name</label>
 				</div>
 			</div>
 
 			<div class="row">
-				<select class="browser-default col m8 l8 xl8 offset-s2 offset-m2 offset-l2 offset-xl2">
+				<select class="browser-default col m8 l8 xl8 offset-s2 offset-m2 offset-l2 offset-xl2" name="status" [(ngModel)]="clientModel.status">
 					<option value="" disabled selected>Choose your option</option>
 					<option value="single">Single</option>
 					<option value="married">Married</option>
@@ -23,7 +23,7 @@
 			</div>
 
 			<div class="row">
-				<select class="browser-default col m8 l8 xl8 offset-s2 offset-m2 offset-l2 offset-xl2">
+				<select class="browser-default col m8 l8 xl8 offset-s2 offset-m2 offset-l2 offset-xl2" name="sex" [(ngModel)]="clientModel.sex">
 					<option value="" disabled selected>Choose your Gender</option>
 					<option value="male">Male</option>
 					<option value="female">Female</option>
@@ -34,8 +34,8 @@
 
 				<div class="col m8 l8 xl8 offset-s2 offset-m2 offset-l2 offset-xl2">
 
-					<label for="birthdate">Birthdate</label>
-					<input type="text" [(ngModel)]="birthdate" name="datepicker" materialize="pickadate" [materializeParams]="[{format:'dd/mm/yyyy'}]"/>
+					<label for="Age">Age</label>
+					<input type="text" [(ngModel)]="clientModel.age" name="datepicker" materialize="pickadate" [materializeParams]="[{format:'dd/mm/yyyy'}]"/>
 
 				</div>
 
@@ -43,7 +43,7 @@
 
 			<div class="row">
 				<div class="input-field col m8 l8 xl8 offset-s2 offset-m2 offset-l2 offset-xl2">
-					<input id="profession" type="text" class="validate">
+					<input id="profession" type="text" class="validate" name="profession" [(ngModel)]="clientModel.profession">
 					<label for="Profession">Profession</label>
 				</div>
 			</div>

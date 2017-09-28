@@ -4,12 +4,12 @@
 </head>
 <body>
 	<div id="form">
-		<h4 class="center-align">Updte User Information</h4>
+		<h4 class="center-align">Add Client</h4>
 		<form class="col m12 l12 xl12">
 			<div class="row">
-				<div class="input-field col m8 l8 xl8 offset-s2 offset-m2 offset-l2 offset-xl2">
-					<input id="name" type="text" class="validate" [(ngModel)]="clientModel.name">
-					<label for="Name">Name</label>
+				<div class="input-field col m8 l8 xl8 offset-s2 offset-m2 offset-l2 offset-xl2 form-control">
+					<input type="text" class="validate" type="text" minlength="6" required="true" name="name" [(ngModel)]="clientModel.name" >
+					<label for="Name" data-error="You need to write a larger name" data-success="Right">Name</label>
 				</div>
 			</div>
 
@@ -32,27 +32,50 @@
 			
 			<div class="row">
 
-				<div class="col m8 l8 xl8 offset-s2 offset-m2 offset-l2 offset-xl2">
+				<div class="col m8 l8 xl8 offset-s2 offset-m2 offset-l2 offset-xl2 form-control">
 
 					<label for="Age">Age</label>
-					<input type="text" [(ngModel)]="clientModel.age" name="datepicker" materialize="pickadate" [materializeParams]="[{format:'dd/mm/yyyy'}]"/>
+					<input type="text" [(ngModel)]="clientModel.age" name="age" materialize="pickadate" [materializeParams]="[{selectYears: 80, format:'yyyy/mm/dd'}]"/>
 
 				</div>
 
 			</div>
 
 			<div class="row">
-				<div class="input-field col m8 l8 xl8 offset-s2 offset-m2 offset-l2 offset-xl2">
-					<input id="profession" type="text" class="validate" name="profession" [(ngModel)]="clientModel.profession">
-					<label for="Profession">Profession</label>
+				<div class="input-field col m8 l8 xl8 offset-s2 offset-m2 offset-l2 offset-xl2 form-control">
+					<input id="profession" type="text" class="validate" minlength="6" required="true" name="profession"  [(ngModel)]="clientModel.profession">
+					<label for="Profession" data-error="You need to write a valid profession" data-success="Right">Profession</label>
 				</div>
 			</div>
 
 			<div class="row">
-				<button class="btn waves-effect waves-light col m3 l3 xl4 offset-m3 offset-l3 offset-xl4" type="submit" name="action">Update Profile Information
+				<button class="btn waves-effect waves-light col m3 l3 xl4 offset-m3 offset-l3 offset-xl4" type="submit" name="action" (click)="addClient()">Submit
 					<i class="material-icons right">send</i>
 				</button>
 
+			</div>
+
+
+			<!-- Modal Success Registration-->
+			<div id="modal1" class="modal" materialize="modal" [materializeParams]="model1Params" [materializeActions]="modalActions1">
+				<div class="modal-content">
+				    <h4>Registration Message</h4>
+					<p>The client was registered successfully</p>
+				</div>
+				<div class="modal-footer">
+					<a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" (onclick)="closeModalSuccess()">Ok</a>
+				</div>
+			</div>
+
+			<!-- Modal Fail Registration -->
+			<div id="modal2" class="modal" materialize="modal" [materializeParams]="model1Params" [materializeActions]="modalActions2">
+				<div class="modal-content">
+					<h4>Registration Message</h4>
+					<p>{{errorMesage}}</p>
+				</div>
+				<div class="modal-footer">
+					<a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+				</div>
 			</div>
 
 		</form>

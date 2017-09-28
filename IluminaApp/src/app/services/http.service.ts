@@ -6,6 +6,7 @@
 import { Injectable} from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { UserModel } from '../userModel';
+import { clientModel } from '../clientModel';
 import {Observable} from 'rxjs/Rx';
 import {  FileUploader } from 'ng2-file-upload/ng2-file-upload';
 import * as moment from 'moment'; 
@@ -31,7 +32,7 @@ export class HttpService {
 	public getAllUser(){
 		return this.http.get(`${this.BASE_URL}`)
 			.map((res:Response) => res.json())
-			.catch((error:any) => Observable.throw(error.json().error || 'Se	rver error'));
+			.catch((error:any) => Observable.throw(error.json().error || 'Server error'));
 	}
 
 	public addUser(body:UserModel, inputEl:HTMLInputElement){
@@ -48,30 +49,33 @@ export class HttpService {
 		formData.append('password',body.password);
 		formData.append('gender',body.gender);
 		formData.append('img', inputEl.files.item(0));
-		console.log(formData);
 
         return this.http.post(`${this.BASE_URL}`+ this.create_user,formData)
         .map((res:Response) => res.json())
         .catch((error:any) => Observable.throw(error.json() || 'Server error'));
     }
 
-	public addClient(body:UserModel) {
+	public addClient(body:clientModel) {
 
-       let formData = new FormData();
-       let age;
+       let age = moment().diff(body.age, 'years');
 
-		formData.append('name',body.username);
-		formData.append('status',body.password);
-		formData.append('sex',body.gender);
-		formData.append('age',body.gender);
-		formData.append('profession',body.gender);
+       // add authorization header with jwt token
+        let header = new Headers({ 'Authorization': "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3QiLCJ0eXBldXNlciI6WyJhMSJdLCJfaWQiOiI1OWNhODEwZGQ5YjUxYjFhMDg1MDBjNjkiLCJpYXQiOjE1MDY1MzM5OTd9.02LDbg_SgfCq-2ymlbfYwAVgvv4gdyK25b8kH2juVFU" });
+        let options = new RequestOptions({ headers: header });
 
-/*
-        return this.http.post(`${this.BASE_URL}`+ this.create_client,formData)
+		let form = {
+			"name" : body.name,
+			"status" : body.status,
+			"sex" : body.sex,
+			"age" : age,
+			"profession" : body.profession
+		}
+		//console.log("XXXXXXXX: ", JSON.stringify(form));
+
+        return this.http.post(`${this.BASE_URL}`+ this.create_client, form, options)
         .map((res:Response) => res.json())
         .catch((error:any) => Observable.throw(error.json() || 'Server error'));
-        */
-
+        
 	}
 
 	public deleteUser(usersID:string) {

@@ -9,15 +9,15 @@
 
 			<div class="row">
 				<div class="input-field col m8 l8 xl8 offset-s2 offset-m2 offset-l2 offset-xl2 form-control">
-					<input name="username" type="text" class="validate" [(ngModel)]="userModel.username">
-					<label for="Username">Username</label>
+					<input name="username" type="text" class="validate" minlength="4" required="true" [(ngModel)]="userModel.username">
+					<label for="Username" data-error="You user need to have at least 4 characters" data-success="Right">Username</label>
 				</div>
 			</div>
 			
 			<div class="row">
 				<div class="input-field col m8 l8 xl8 offset-s2 offset-m2 offset-l2 offset-xl2 form-control">
-					<input name="password" [(ngModel)]="userModel.password" type="password" class="validate">
-					<label for="Password">Password</label>
+					<input name="password" [(ngModel)]="userModel.password" type="password" class="validate" minlength="6" required="true">
+					<label for="Password" data-error="You user need to have at least 6 characters" data-success="Right">Password</label>
 				</div>
 			</div>
 			

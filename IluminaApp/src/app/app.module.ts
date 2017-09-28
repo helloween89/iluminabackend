@@ -12,6 +12,7 @@ import { EmitterService } from './services/emitter.service';
 import { AddUserComponent } from './add-user/add-user.component';
 import { SearchUserComponent } from './search-user/search-user.component';
 import { addClientComponent } from './add-client/add-client.component';
+import { AuthGuard } from './guards/index';
 
 // Define the routes
 const ROUTES = [
@@ -36,20 +37,22 @@ const ROUTES = [
 
 @NgModule({
   declarations: [
-    AppComponent,
-    FileSelectDirective,
-    AddUserComponent,
-    SearchUserComponent,
-    addClientComponent
+  AppComponent,
+  FileSelectDirective,
+  AddUserComponent,
+  SearchUserComponent,
+  addClientComponent
   ],
   imports: [
-    BrowserModule,
-    FormsModule,
-    MaterializeModule,
-    HttpModule,
-    RouterModule.forRoot(ROUTES)  
+  BrowserModule,
+  FormsModule,
+  MaterializeModule,
+  HttpModule,
+  RouterModule.forRoot(ROUTES)  
   ],
-  providers: [EmitterService],
+  providers: [
+  EmitterService,
+  AuthGuard,],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

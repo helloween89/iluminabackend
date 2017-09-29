@@ -32,8 +32,8 @@ export class HttpService {
 
 	public getAllUser(){
 		return this.http.get(`${this.BASE_URL}`)
-			.map((res:Response) => res.json())
-			.catch((error:any) => Observable.throw(error.json().error || 'Server error'));
+		.map((res:Response) => res.json())
+		.catch((error:any) => Observable.throw(error.json().error || 'Server error'));
 	}
 
 	public addUser(body:UserModel, inputEl:HTMLInputElement){
@@ -43,7 +43,7 @@ export class HttpService {
 			console.log("ImageUpload:uploaded:", item, status, response);
 		};
 
-        
+
 		let formData = new FormData();
 
 		formData.append('username',body.username);
@@ -51,18 +51,18 @@ export class HttpService {
 		formData.append('gender',body.gender);
 		formData.append('img', inputEl.files.item(0));
 
-        return this.http.post(`${this.BASE_URL}`+ this.create_user,formData)
-        .map((res:Response) => res.json())
-        .catch((error:any) => Observable.throw(error.json() || 'Server error'));
-    }
+		return this.http.post(`${this.BASE_URL}`+ this.create_user,formData)
+		.map((res:Response) => res.json())
+		.catch((error:any) => Observable.throw(error.json() || 'Server error'));
+	}
 
 	public addClient(body:clientModel) {
 
-       let age = moment().diff(body.age, 'years');
+		let age = moment().diff(body.age, 'years');
 
-       // add authorization header with jwt token
-        let header = new Headers({ 'Authorization': "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3QiLCJ0eXBldXNlciI6WyJhMSJdLCJfaWQiOiI1OWNhODEwZGQ5YjUxYjFhMDg1MDBjNjkiLCJpYXQiOjE1MDY1MzM5OTd9.02LDbg_SgfCq-2ymlbfYwAVgvv4gdyK25b8kH2juVFU" });
-        let options = new RequestOptions({ headers: header });
+		// add authorization header with jwt token
+		let header = new Headers({ 'Authorization': "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3QiLCJ0eXBldXNlciI6WyJhMSJdLCJfaWQiOiI1OWNhODEwZGQ5YjUxYjFhMDg1MDBjNjkiLCJpYXQiOjE1MDY1MzM5OTd9.02LDbg_SgfCq-2ymlbfYwAVgvv4gdyK25b8kH2juVFU" });
+		let options = new RequestOptions({ headers: header });
 
 		let form = {
 			"name" : body.name,
@@ -73,10 +73,10 @@ export class HttpService {
 		}
 		//console.log("XXXXXXXX: ", JSON.stringify(form));
 
-        return this.http.post(`${this.BASE_URL}`+ this.create_client, form, options)
-        .map((res:Response) => res.json())
-        .catch((error:any) => Observable.throw(error.json() || 'Server error'));
-        
+		return this.http.post(`${this.BASE_URL}`+ this.create_client, form, options)
+		.map((res:Response) => res.json())
+		.catch((error:any) => Observable.throw(error.json() || 'Server error'));
+
 	}
 
 	public loginAuth(body:loginModel): Observable<boolean> {
@@ -87,37 +87,42 @@ export class HttpService {
 		}
 
 		return this.http.post(`${this.BASE_URL}`+ this.login, form)
-            .map((response: Response) => {
-                // login successful if there's a jwt token in the response
-                let token = response.json() && response.json().token;
-                if (token) {
-                    // set token property
-                    this.token = token;
+		.map((response: Response) => {
+			// login successful if there's a jwt token in the response
+			let token = response.json() && response.json().token;
+			if (token) {
+				// set token property
+				this.token = token;
 
-                    // store username and jwt token in local storage to keep user logged in between page refreshes
-                    localStorage.setItem('currentUser', JSON.stringify({ username: body.username, token: token }));
+				// store username and jwt token in local storage to keep user logged in between page refreshes
+				localStorage.setItem('currentUser', JSON.stringify({ username: body.username, token: token }));
 
-                    // return true to indicate successful login
-                    return true;
-                } else {
-                    // return false to indicate failed login
-                    return false;
-                }
-            });
-        
+				// return true to indicate successful login
+				return true;
+			} else {
+				// return false to indicate failed login
+				return false;
+			}
+		});
+
 	}
 
 
+	logout(): void {
+		// clear token remove user from local storage to log user out
+		this.token = null;
+		localStorage.removeItem('currentUser');
+	}
 
 	public deleteUser(usersID:string) {
 
-        let options = new RequestOptions({
-        	headers: new Headers({ 'Content-Type': 'application/json;charset=UTF-8' }) 
-        });
+		let options = new RequestOptions({
+			headers: new Headers({ 'Content-Type': 'application/json;charset=UTF-8' }) 
+		});
 
 		return this.http.delete(`${this.BASE_URL}${usersID}`,options)
-			.map((res:Response) => res.json())
-			.catch((error:any) => Observable.throw(error.json().error || 'Server error'));
+		.map((res:Response) => res.json())
+		.catch((error:any) => Observable.throw(error.json().error || 'Server error'));
 	}
 
 }

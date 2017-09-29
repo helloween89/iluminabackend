@@ -43,12 +43,20 @@ const ROUTES = [
     {
       path: 'searchuser',
       component: SearchUserComponent
+    },
+
+    {
+      path: '',
+      pathMatch: 'full',
+      redirectTo: 'adduser'
+
     }
     ]
   }
 
   ]
-},  { path: '**', redirectTo: 'home' }
+},  
+{ path: '**', redirectTo: 'home/adduser'},
 ];
 
 @NgModule({

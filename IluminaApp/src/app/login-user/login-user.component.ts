@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit, EventEmitter} from '@angular/core';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { HttpService } from '../services/http.service';
@@ -16,7 +16,8 @@ import * as Materialize from 'angular2-materialize';
 export class LoginUserComponent {
 
 	private loginModel:loginModel = new loginModel('','');
-	private errorMesage:String;
+	private errorMessage:String;
+	modalActions2 = new EventEmitter<string|MaterializeAction>();
 
 	constructor(private httpService: HttpService, private router: Router) {}
 
@@ -25,18 +26,35 @@ export class LoginUserComponent {
 			response =>  {
 				console.log(response);
 				if (response === true) {
-					this.router.navigate(['home']);
+					this.router.navigate(['home/adduser']);
 				} else {
-					this.errorMesage = 'Username or password is incorrect';
-					//this.loading = false;
+
+					this.errorMessage = 'Username or password are incorrect';
+					console.log("Test 2",this.errorMessage);
+					
 				}
 
 			},
 			error=> {
-				this.errorMesage = error.message;
-				console.log(this.errorMesage);
+				this.OpenModalFail();
+				this.errorMessage = error.json().message;
+				console.log("Test",this.errorMessage);
 			}
 			);
 	}
+
+	ngOnInit() {
+        // reset login status
+        this.httpService.logout();
+    }
+
+	public OpenModalFail(): void {
+		this.modalActions2.emit({action:"modal",params:['open']});
+	}
+
+	public closeModalFail(): void {
+		this.modalActions2.emit({action:"modal",params:['close']});
+	}
+
 
 }

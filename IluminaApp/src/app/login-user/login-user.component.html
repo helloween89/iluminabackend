@@ -43,4 +43,15 @@
 
   </div>
 
+  <!-- Modal Fail Registration -->
+      <div id="modal2" class="modal" materialize="modal" [materializeParams]="model1Params" [materializeActions]="modalActions2">
+        <div class="modal-content">
+          <h4>Login Message</h4>
+          <p>{{errorMessage}}</p>
+        </div>
+        <div class="modal-footer">
+          <a class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+        </div>
+      </div>
+
 </div>

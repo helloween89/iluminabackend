@@ -11,13 +11,13 @@
         <ul id="nav-mobile" class="right">
           <li><a href="" class="black-text">Profile</a></li>
           <li><a href="" class="black-text">Messages<span class="new badge">4</span></a></li>
-          <li><a href="" class="black-text">Logout</a></li>
+          <li><a href="" class="black-text"[routerLink]="['/login']">Logout</a></li>
         </ul> 
       </div>
     </nav>
   </div>
       <div class="row">
-      <div class="col xl3 s3 m3" style="margin-top:30px;">
+      <div class="col xl3 s3 m3 heightop">
 
         <div class="section selector cursor-hover" (click)="toggleNav($event); $event.stopPropagation()" routerLink="adduser">
           <i class="small material-icons">person_add</i>
@@ -32,7 +32,7 @@
 
       </div>
 
-      <div class="col xl9 s9 m9 l9" id="container" style="margin-top:30px;">
+      <div class="col xl9 s9 m9 l9 heightop" id="container">
         <router-outlet></router-outlet>
       </div> 
     </div>

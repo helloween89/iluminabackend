@@ -1,0 +1,18 @@
+.add-user-heading{
+	margin: 0px auto;
+	text-align: center;
+	font-weight: 200;
+	padding: 10px;
+}
+i.material-icons{
+	vertical-align: middle;
+	margin-right: .25em;
+	font-weight: bold;
+}
+.selector{
+	color: red;
+}
+
+.cursor-hover:hover {
+	cursor: pointer;
+}

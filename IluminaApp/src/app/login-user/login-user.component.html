@@ -1,0 +1,46 @@
+<div class="container valign-center" >
+
+  <div class="row">
+
+    <div class="col s5 m5 xl5 offset-s3 offset-m3 offset-xl3">
+
+      <div class="card">
+
+        <form class="card-content">
+
+          <div class="row">
+            <h4 class="center-align">Sign in</h4>
+          </div> 
+
+          <div class="row">
+            <div class="input-field form-control">
+            <input name="username" type="text" class="validate" minlength="4" required="true" [(ngModel)]="loginModel.username">
+              <label for="Username" data-error="You user need to have at least 4 characters" data-success="Right">Username</label>
+            </div> 
+          </div>
+
+
+          <div class="row">
+            <div class="input-field form-control">
+              <input name="password" type="password" class="validate" minlength="4" required="true" [(ngModel)]="loginModel.password">
+              <label for="Password" data-error="You user need to have at least 4 characters" data-success="Right">Password</label>
+            </div> 
+          </div>
+
+          <div class="row">
+
+            <button class="btn waves-effect waves-light col m3 l3 xl3 offset-s2 offset-m4 offset-l4 offset-xl4" type="submit" name="action" (click)="login()"> Login
+              <i class="material-icons right">send</i>
+            </button>
+
+          </div>
+
+        </form>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

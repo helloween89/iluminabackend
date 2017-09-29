@@ -13,26 +13,42 @@ import { AddUserComponent } from './add-user/add-user.component';
 import { SearchUserComponent } from './search-user/search-user.component';
 import { addClientComponent } from './add-client/add-client.component';
 import { AuthGuard } from './guards/index';
+import { LoginUserComponent } from './login-user/login-user.component';
+import { HomeUserComponent } from './home-user/home-user.component';
 
 // Define the routes
 const ROUTES = [
+
+{
+  path: 'login',
+  component: LoginUserComponent
+},
+{
+  path: 'home',
+  component: HomeUserComponent,
+  canActivate: [AuthGuard],
+  children: [
   {
     path: '',
-    redirectTo: 'adduser',
-    pathMatch: 'full'
-  },
-  {
-    path: 'adduser',
-    component: AddUserComponent
-  },
-  {
-    path: 'addclient',
-    component: addClientComponent
-  },
-  {
-    path: 'searchuser',
-    component: SearchUserComponent
+    canActivateChild: [AuthGuard],
+    children: [
+    {
+      path: 'adduser',
+      component: AddUserComponent
+    },
+    {
+      path: 'addclient',
+      component: addClientComponent
+    },
+    {
+      path: 'searchuser',
+      component: SearchUserComponent
+    }
+    ]
   }
+
+  ]
+},  { path: '**', redirectTo: 'home' }
 ];
 
 @NgModule({
@@ -41,7 +57,9 @@ const ROUTES = [
   FileSelectDirective,
   AddUserComponent,
   SearchUserComponent,
-  addClientComponent
+  addClientComponent,
+  LoginUserComponent,
+  HomeUserComponent
   ],
   imports: [
   BrowserModule,

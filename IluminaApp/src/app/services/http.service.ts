@@ -1,12 +1,8 @@
-/*
-* Angular 2 CRUD application using Nodejs
-* @autthor Shashank Tiwari
-*/
-
 import { Injectable} from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { UserModel } from '../userModel';
 import { clientModel } from '../clientModel';
+import { loginModel } from '../loginModel';
 import {Observable} from 'rxjs/Rx';
 import {  FileUploader } from 'ng2-file-upload/ng2-file-upload';
 import * as moment from 'moment'; 
@@ -23,11 +19,16 @@ export class HttpService {
 	private BASE_URL:string = 'http://localhost:3000/';
 	private create_user:String ="user";
 	private create_client:String ="client";
+	private login:String = "auth/sign_in";
+	public token: string;
 	private uploader:FileUploader = new FileUploader({url: this.BASE_URL+this.create_user, itemAlias: 'img'});
 
-	constructor(
-	        private http: Http
-	) { }
+	constructor(private http: Http) {
+
+		let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+		this.token = currentUser && currentUser.token;
+
+	}
 
 	public getAllUser(){
 		return this.http.get(`${this.BASE_URL}`)
@@ -77,6 +78,36 @@ export class HttpService {
         .catch((error:any) => Observable.throw(error.json() || 'Server error'));
         
 	}
+
+	public loginAuth(body:loginModel): Observable<boolean> {
+
+		let form = {
+			"username" : body.username,
+			"password" : body.password,
+		}
+
+		return this.http.post(`${this.BASE_URL}`+ this.login, form)
+            .map((response: Response) => {
+                // login successful if there's a jwt token in the response
+                let token = response.json() && response.json().token;
+                if (token) {
+                    // set token property
+                    this.token = token;
+
+                    // store username and jwt token in local storage to keep user logged in between page refreshes
+                    localStorage.setItem('currentUser', JSON.stringify({ username: body.username, token: token }));
+
+                    // return true to indicate successful login
+                    return true;
+                } else {
+                    // return false to indicate failed login
+                    return false;
+                }
+            });
+        
+	}
+
+
 
 	public deleteUser(usersID:string) {
 

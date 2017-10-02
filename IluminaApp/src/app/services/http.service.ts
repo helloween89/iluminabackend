@@ -7,7 +7,6 @@ import {Observable} from 'rxjs/Rx';
 import {  FileUploader } from 'ng2-file-upload/ng2-file-upload';
 import * as moment from 'moment'; 
 
-
 // Import RxJs required methods
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -20,6 +19,7 @@ export class HttpService {
 	private create_user:String ="user";
 	private create_client:String ="client";
 	private login:String = "auth/sign_in";
+	private userspath = "getusers";
 	public token: string;
 	private uploader:FileUploader = new FileUploader({url: this.BASE_URL+this.create_user, itemAlias: 'img'});
 
@@ -31,9 +31,14 @@ export class HttpService {
 	}
 
 	public getAllUser(){
-		return this.http.get(`${this.BASE_URL}`)
+
+		// add authorization header with jwt token
+		let header = new Headers({ 'Authorization': "JWT " + this.token });
+		let options = new RequestOptions({ headers: header });
+
+		return this.http.get(`${this.BASE_URL}`+this.userspath, options)
 		.map((res:Response) => res.json())
-		.catch((error:any) => Observable.throw(error.json().error || 'Server error'));
+		.catch((error:any) => Observable.throw(error.json() || 'Server error'));
 	}
 
 	public addUser(body:UserModel, inputEl:HTMLInputElement){
@@ -61,7 +66,7 @@ export class HttpService {
 		let age = moment().diff(body.age, 'years');
 
 		// add authorization header with jwt token
-		let header = new Headers({ 'Authorization': "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3QiLCJ0eXBldXNlciI6WyJhMSJdLCJfaWQiOiI1OWNhODEwZGQ5YjUxYjFhMDg1MDBjNjkiLCJpYXQiOjE1MDY1MzM5OTd9.02LDbg_SgfCq-2ymlbfYwAVgvv4gdyK25b8kH2juVFU" });
+		let header = new Headers({ 'Authorization': "JWT "+this.token });
 		let options = new RequestOptions({ headers: header });
 
 		let form = {
@@ -71,7 +76,6 @@ export class HttpService {
 			"age" : age,
 			"profession" : body.profession
 		}
-		//console.log("XXXXXXXX: ", JSON.stringify(form));
 
 		return this.http.post(`${this.BASE_URL}`+ this.create_client, form, options)
 		.map((res:Response) => res.json())

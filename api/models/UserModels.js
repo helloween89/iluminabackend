@@ -20,9 +20,9 @@ let User = new Schema({
     typeuser: {
         type: [{
             type: String,
-            enum: ['a1', 'a2', 'admin']
+            enum: ['a1', 'a2', 'admin'],
+            default: ['a1']
         }],
-        default: ['a1']
     },
     date: {
         type: Date,

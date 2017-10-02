@@ -15,6 +15,7 @@ import { addClientComponent } from './add-client/add-client.component';
 import { AuthGuard } from './guards/index';
 import { LoginUserComponent } from './login-user/login-user.component';
 import { HomeUserComponent } from './home-user/home-user.component';
+import { EditUserComponent } from './edit-user/edit-user.component';
 
 // Define the routes
 const ROUTES = [
@@ -44,7 +45,10 @@ const ROUTES = [
       path: 'searchuser',
       component: SearchUserComponent
     },
-
+    {
+      path: 'edituser',
+      component: EditUserComponent
+    },
     {
       path: '',
       pathMatch: 'full',
@@ -55,7 +59,7 @@ const ROUTES = [
   }
 
   ]
-},  
+},
 { path: '**', redirectTo: 'home/adduser'},
 ];
 
@@ -67,7 +71,8 @@ const ROUTES = [
   SearchUserComponent,
   addClientComponent,
   LoginUserComponent,
-  HomeUserComponent
+  HomeUserComponent,
+  EditUserComponent
   ],
   imports: [
   BrowserModule,

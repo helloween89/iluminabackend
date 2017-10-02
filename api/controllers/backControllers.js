@@ -66,6 +66,19 @@ exports.create_client = function (req, res) {
 
     };
 
+exports.getAllUsers = function (req, res) {
+    //console.log("user: ", req.body);
+    //let users = new User(req.body);
+    User.find(function (err, client) {
+        if (err) {
+            //console.log({'err': err});
+            return res.status(501).json(err);
+        }
+        return res.status(201).json(client);
+    });
+
+};
+
 /*
 exports.reg_pinfouser = function (req, res) {
     User.find({ username: req.params.userId }, function (err, task) {

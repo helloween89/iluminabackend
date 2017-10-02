@@ -1,21 +1,51 @@
 <html>
+
 <head>
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
+
 <body>
-   <h4 class="center-align">Search Users</h4>
-   <div class="col m8 l8 xl8 offset-s2 offset-m2 offset-l2 offset-xl2">
-	<nav>
-		<div class="nav-wrapper">
-			<form>
-				<div class="input-field">
-					<input id="search" type="search" required>
-					<label class="label-icon" for="search"><i class="material-icons">search</i></label>
-					<i class="material-icons">close</i>
-				</div>
-			</form>
-		</div>
-	</nav>
+	<h4 class="center-align">Search Users</h4>
+	<div class="col m8 l8 xl8 offset-s2 offset-m2 offset-l2 offset-xl2">
+		<nav>
+			<div class="nav-wrapper">
+				<form>
+					<div class="input-field">
+						<input id="search" type="search" required>
+						<label class="label-icon" for="search"><i class="material-icons">search</i></label>
+						<i class="material-icons">close</i>
+					</div>
+				</form>
+			</div>
+		</nav>
 	</div>
+		<div class="top">
+			<table class="section striped">
+				<thead>
+					<tr>
+						<th>Username</th>
+						<th>Pic</th>
+						<th>Type User</th>
+						<th>Date</th>
+						<th>Edit</th>
+					</tr>
+				</thead>
+
+				<tbody>
+
+					<tr *ngFor="let user of users">
+
+						<td >{{user.username}}</td>
+						<td>{{user.img}}</td>
+						<td>{{user.typeuser}}</td>
+						<td>{{user.date}}</td>
+						<td><a [routerLink]="['../edituser']" [queryParams]="{ username: user.username, typeuser: user.typeuser }">Edit</a></td>
+
+					</tr>
+					
+				</tbody>
+			</table>
+		</div>
 </body>
+
 </html>

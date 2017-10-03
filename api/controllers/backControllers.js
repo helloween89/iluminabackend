@@ -29,15 +29,17 @@ let mongoose = require('mongoose'),
 
 exports.update_user = function (req, res) {
 
-    //let userupdate = new User(req.body);
+    console.log("username", req.body.username);
     let encryptpass = bcrypt.hashSync(req.body.password, 10);
     let tuser = req.body.typeuser;
     let objupdate = {
+        username: req.body.username,
         password: encryptpass,
-        typeuser: tuser
+        typeuser: tuser,
+        img: req.file.filename
     }
 
-    User.findOneAndUpdate({ username: req.params.userId }, { $set: objupdate }, { new: true }, function (err, user) {
+    User.findOneAndUpdate({ username: req.body.username }, { $set: objupdate }, { new: true }, function (err, user) {
 
         if (err) {
 

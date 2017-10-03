@@ -31,8 +31,8 @@ let upload = multer({ storage: storage });
     app.route('/auth/sign_in')
         .post(user.sign_in);
 
-    app.route('/userupdate/:userId')
-        .post(user.loginRequired,user.update_user);
+    app.route('/userupdate')
+        .post(upload.single('img'),user.loginRequired,user.update_user);
 
     app.route('/getusers')
         .get(user.loginRequired, user.getAllUsers);

@@ -36,7 +36,7 @@
 					<tr *ngFor="let user of users">
 
 						<td >{{user.username}}</td>
-						<td>{{user.img}}</td>
+						<td><img class="responsive-img circle" height="80px" width="100px" src="{{pathimg+user.img}}"></td>
 						<td>{{user.typeuser}}</td>
 						<td>{{user.date}}</td>
 						<td><a [routerLink]="['../edituser']" [queryParams]="{ username: user.username, typeuser: user.typeuser }">Edit</a></td>

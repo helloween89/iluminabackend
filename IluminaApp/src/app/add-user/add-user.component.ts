@@ -2,14 +2,15 @@
 * Angular 2 CRUD application using Nodejs
 */
 
-import { Component, Input, OnInit,  ElementRef, EventEmitter } from '@angular/core';
+import { Component, Input, OnInit, EventEmitter } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpService } from '../services/http.service';
 import { UserModel } from '../userModel';
 import {  FileUploader } from 'ng2-file-upload/ng2-file-upload';
 import { MaterializeDirective, MaterializeAction } from 'angular2-materialize';
 import * as Materialize from 'angular2-materialize';
-import * as moment from 'moment'; 
+import * as moment from 'moment';
+import { Ng2ImgMaxService } from 'ng2-img-max'; 
 
 @Component({
   selector: 'app-add-user',
@@ -23,15 +24,14 @@ export class AddUserComponent {
 	private isInsert:boolean = true;
 	private userModel:UserModel = new UserModel('','','');
 	private errorMesage:String;
+	private uploadedImage: File;
 	modalActions1 = new EventEmitter<string|MaterializeAction>();
 	modalActions2 = new EventEmitter<string|MaterializeAction>();
 
-	constructor(private httpService: HttpService, private el: ElementRef) {}
+	constructor(private httpService: HttpService, private ng2ImgMax: Ng2ImgMaxService) {}
 
 	public addUser(): void {
-		let inputEl: HTMLInputElement = this.el.nativeElement.querySelector('#img');
-		console.log(inputEl);
-		this.httpService.addUser(this.userModel, inputEl).subscribe(
+		this.httpService.addUser(this.userModel, this.uploadedImage).subscribe(
                         response =>  {
 	                      console.log(response);
 	                      this.OpenModalSuccess();
@@ -64,6 +64,20 @@ export class AddUserComponent {
 
 	public closeModalFail(): void {
 		this.modalActions2.emit({action:"modal",params:['close']});
+	}
+
+	onImageChange(event) : void {
+		let image = event.target.files[0];
+
+		this.ng2ImgMax.resizeImage(image, 100, 80).subscribe(
+			result => {
+				 this.uploadedImage = new File([result], result.name);
+				 console.log("img ",this.uploadedImage);
+			},
+			error => {
+				console.log('😢 Oh no!', error);
+			}
+			);
 	}
 
 }

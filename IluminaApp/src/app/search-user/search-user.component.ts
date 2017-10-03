@@ -12,6 +12,7 @@ import { UserModel } from '../userModel';
 export class SearchUserComponent implements OnInit {
 
   private errorMesage: String;
+  private pathimg: String = "http://localhost:3000/";
   private users: any = [];
 
   constructor(private httpService: HttpService) { }

@@ -22,7 +22,7 @@
 			</div>
 			
 			<div class="row">
-				<select class="browser-default col m8 l8 xl8 offset-s2 offset-m2 offset-l2 offset-xl2 form-control" name="gender" [(ngModel)]="userModel.gender">
+				<select class="browser-default col m8 l8 xl8 offset-s2 offset-m2 offset-l2 offset-xl2 form-control" name="typeuser" [(ngModel)]="userModel.typeuser">
 					<option value="" disabled selected>Choose your option</option>
 					<option value="a1">Contrator</option>
 					<option value="a2">Regular</option>
@@ -37,7 +37,7 @@
 						<div class="file-field input-field form-control">
 							<div class="btn">
 								<span>Picture</span>
-								<input type="file" id="img" />
+								<input type="file" id="img" (change)="onImageChange($event)" accept="image/*" />
 							</div>
 							<div class="file-path-wrapper">
 								<input class="file-path validate" type="text">

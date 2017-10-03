@@ -6,6 +6,7 @@ import 'materialize-css';
 import { MaterializeModule } from 'angular2-materialize';
 import { Routes, RouterModule} from '@angular/router';
 import { FileSelectDirective } from 'ng2-file-upload';
+import { Ng2ImgMaxModule } from 'ng2-img-max';
 
 import { AppComponent } from './app.component';
 import { EmitterService } from './services/emitter.service';
@@ -16,6 +17,7 @@ import { AuthGuard } from './guards/index';
 import { LoginUserComponent } from './login-user/login-user.component';
 import { HomeUserComponent } from './home-user/home-user.component';
 import { EditUserComponent } from './edit-user/edit-user.component';
+
 
 // Define the routes
 const ROUTES = [
@@ -79,6 +81,7 @@ const ROUTES = [
   FormsModule,
   MaterializeModule,
   HttpModule,
+  Ng2ImgMaxModule,
   RouterModule.forRoot(ROUTES)  
   ],
   providers: [

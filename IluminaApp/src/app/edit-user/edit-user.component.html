@@ -24,7 +24,7 @@
       </div>
 
       <div class="row">
-        <select class="browser-default col m8 l8 xl8 offset-s2 offset-m2 offset-l2 offset-xl2 form-control" name="gender" value="{{typeuser}}" [(ngModel)]="userModel.gender">
+        <select class="browser-default col m8 l8 xl8 offset-s2 offset-m2 offset-l2 offset-xl2 form-control" name="typeuser" value="{{typeuser}}" [(ngModel)]="userModel.typeuser">
 					<option value="" disabled selected>Choose your option</option>
 					<option value="a1">Contrator</option>
 					<option value="a2">Regular</option>
@@ -52,12 +52,33 @@
       <div class="row">
 
         <button class="btn waves-effect waves-light col m3 l3 xl3 offset-s2 offset-m4 offset-l4 offset-xl4" type="submit" name="action"
-          (click)="addUser()">Register
+          (click)="updateUser()">Register
 					<i class="material-icons right">send</i>
 				</button>
 
       </div>
-     
+
+      <!-- Modal Success Registration-->
+      <div id="modal1" class="modal" materialize="modal" [materializeParams]="model1Params" [materializeActions]="modalActions1">
+        <div class="modal-content">
+            <h4>Registration Message</h4>
+          <p>The user was created successfully</p>
+        </div>
+        <div class="modal-footer">
+          <a class="modal-action modal-close waves-effect waves-green btn-flat" [routerLink]="['../searchuser']">Ok</a>  
+        </div>
+      </div>
+
+      <!-- Modal Fail Registration -->
+      <div id="modal2" class="modal" materialize="modal" [materializeParams]="model1Params" [materializeActions]="modalActions2">
+        <div class="modal-content">
+          <h4>Registration Message</h4>
+          <p>{{errorMesage}}</p>
+        </div>
+        <div class="modal-footer">
+          <a class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+        </div>
+      </div>
 
     </form>
   </div>

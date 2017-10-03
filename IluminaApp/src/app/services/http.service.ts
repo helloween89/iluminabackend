@@ -1,5 +1,5 @@
 import { Injectable} from '@angular/core';
-import { Http, Response, Headers, RequestOptions } from '@angular/http';
+import { Http, Response, Headers, RequestOptions, URLSearchParams } from '@angular/http';
 import { UserModel } from '../userModel';
 import { clientModel } from '../clientModel';
 import { loginModel } from '../loginModel';
@@ -17,6 +17,7 @@ export class HttpService {
 
 	private BASE_URL:string = 'http://localhost:3000/';
 	private create_user:String ="user";
+	private update_user:String = "userupdate";
 	private create_client:String ="client";
 	private login:String = "auth/sign_in";
 	private userspath = "getusers";
@@ -41,7 +42,7 @@ export class HttpService {
 		.catch((error:any) => Observable.throw(error.json() || 'Server error'));
 	}
 
-	public addUser(body:UserModel, inputEl:HTMLInputElement){
+	public addUser(body:UserModel, inputEl:File){
 
 		this.uploader.onAfterAddingFile = (file)=> { file.withCredentials = false; };
 		this.uploader.onCompleteItem = (item:any, response:any, status:any, headers:any) => {
@@ -53,12 +54,35 @@ export class HttpService {
 
 		formData.append('username',body.username);
 		formData.append('password',body.password);
-		formData.append('gender',body.gender);
-		formData.append('img', inputEl.files.item(0));
+		formData.append('typeuser',body.typeuser);
+		formData.append('img', inputEl);
 
 		return this.http.post(`${this.BASE_URL}`+ this.create_user,formData)
 		.map((res:Response) => res.json())
 		.catch((error:any) => Observable.throw(error.json() || 'Server error'));
+	}
+
+	public updateUser(body:UserModel, inputEl:HTMLInputElement) {
+
+		this.uploader.onAfterAddingFile = (file)=> { file.withCredentials = false; };
+		this.uploader.onCompleteItem = (item:any, response:any, status:any, headers:any) => {
+			console.log("ImageUpload:uploaded:", item, status, response);
+		};
+
+		let header = new Headers({ 'Authorization': "JWT "+this.token });
+		let options = new RequestOptions({ headers: header });
+		
+		let formData = new FormData();
+
+        formData.append('username',body.username);
+		formData.append('password',body.password);
+		formData.append('typeuser',body.typeuser);
+		formData.append('img', inputEl.files.item(0));
+
+		return this.http.post(`${this.BASE_URL}`+ this.update_user,formData, options)
+		.map((res:Response) => res.json())
+		.catch((error:any) => Observable.throw(error.json().error || 'Server error'));
+
 	}
 
 	public addClient(body:clientModel) {

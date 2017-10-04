@@ -19,6 +19,7 @@ export class HttpService {
 	private create_user:String ="user";
 	private update_user:String = "userupdate";
 	private create_client:String ="client";
+	private delete_user:String = "userdel";
 	private login:String = "auth/sign_in";
 	private userspath = "getusers";
 	public token: string;
@@ -136,19 +137,23 @@ export class HttpService {
 	}
 
 
-	logout(): void {
+	public logout(): void {
 		// clear token remove user from local storage to log user out
 		this.token = null;
 		localStorage.removeItem('currentUser');
 	}
 
-	public deleteUser(usersID:string) {
+	public deleteUser(body:any) {
 
-		let options = new RequestOptions({
-			headers: new Headers({ 'Content-Type': 'application/json;charset=UTF-8' }) 
-		});
+		let header = new Headers({ 'Authorization': "JWT "+this.token });
+		let options = new RequestOptions({ headers: header });
 
-		return this.http.delete(`${this.BASE_URL}${usersID}`,options)
+		let params = {
+			"username" : body.username,
+			"img" : body.img
+		}
+
+		return this.http.post(`${this.BASE_URL}`+this.delete_user, params, options)
 		.map((res:Response) => res.json())
 		.catch((error:any) => Observable.throw(error.json().error || 'Server error'));
 	}

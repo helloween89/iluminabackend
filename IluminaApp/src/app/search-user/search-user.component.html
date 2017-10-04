@@ -28,6 +28,7 @@
 						<th>Type User</th>
 						<th>Date</th>
 						<th>Edit</th>
+						<th>Delete</th>
 					</tr>
 				</thead>
 
@@ -36,15 +37,28 @@
 					<tr *ngFor="let user of users">
 
 						<td >{{user.username}}</td>
-						<td><img class="responsive-img circle" height="80px" width="100px" src="{{pathimg+user.img}}"></td>
+						<td><img class="responsive-img circle" src="{{pathimg+user.img}}"></td>
 						<td>{{user.typeuser}}</td>
 						<td>{{user.date}}</td>
 						<td><a [routerLink]="['../edituser']" [queryParams]="{ username: user.username, typeuser: user.typeuser }">Edit</a></td>
+						<td><i class="material-icons cursor-hover" (click)="OpenModalConf(user)">close</i></td>
 
 					</tr>
 					
 				</tbody>
 			</table>
+
+			<!-- Modal for confirm the deletion-->
+					<div id="modal" class="modal" materialize="modal" [materializeParams]="model1Params" [materializeActions]="modalActions1">
+						<div class="modal-content">
+							<h4>Would you like to delete the user {{datauser.username}}</h4>
+						</div>
+						<div class="modal-footer">
+							<a class="modal-action modal-close waves-effect waves-green btn-flat" (click)="deleteUser()">Yes</a>
+							<a class="modal-action modal-close waves-effect waves-green btn-flat" (click)="closeModalNo()">No</a>
+						</div>
+					</div>
+
 		</div>
 </body>
 

@@ -1,3 +1,6 @@
 .top{
     margin-top: 8em;
 }
+.cursor-hover:hover {
+	cursor: pointer;
+}

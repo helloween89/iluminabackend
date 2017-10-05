@@ -1,12 +1,14 @@
 'use strict';
 
 let mongoose = require('mongoose'),
-    User = mongoose.model('Users'),
-    bcrypt = require('bcrypt'),
-    jwt = require('jsonwebtoken'),
-    multer = require('multer'),
-    path = require("path"),
-    Client = mongoose.model('ClientModel');
+User = mongoose.model('Users'),
+bcrypt = require('bcrypt'),
+jwt = require('jsonwebtoken'),
+multer = require('multer'),
+path = require("path"),
+Client = mongoose.model('ClientModel');
+    
+let fs = require('fs');
 
 
     exports.create_user = function (req, res) {
@@ -81,106 +83,39 @@ exports.getAllUsers = function (req, res) {
 
 };
 
-/*
-exports.reg_pinfouser = function (req, res) {
-    User.find({ username: req.params.userId }, function (err, task) {
+exports.getUserById = function (req, res) {
+    console.log("user: ", req.body.username);
+    //let users = new User(req.body);
+    User.find({username: new RegExp(req.body.username, "i")}, function (err, client) {
         if (err) {
-            res.send(err);
-        } else {
-
-            let info_user = new Userinfo(req.body);
-            info_user.img = req.file.filename;
-            //console.log(info_user.img);
-
-            info_user.save(function (err, task) {
-                if (err)
-                    res.send(err);
-                res.json(task);
-            });
-
+            //console.log({'err': err});
+            return res.status(501).json(err);
         }
-    }).select('-__v');
+        return res.status(201).json(client);
+    });
+
 };
-*/
-
-/*
-exports.update_regpinfouser = function (req, res) {
-    User.find({ username: req.params.userId }, function (err, task) {
-        if (err) {
-            res.send(err);
-        } else {
-
-            let info_user = new Userinfo(req.body);
-            let img;
-            //console.log(info_user.img);
-            let objupdate = {};
-
-            if (req.file == undefined) {
-                objupdate.img = "";
-            } else {
-                objupdate.img = req.file.filename;
-            }
-
-            if (req.body.name != undefined) objupdate.name = req.body.name;
-            if (req.body.status != undefined) objupdate.status = req.body.status;
-            if (req.body.sex != undefined) objupdate.sex = req.body.sex;
-            if (req.body.age != undefined) objupdate.age = req.body.age;
-            if (!req.body.profession != undefined) objupdate.profession = req.body.profession;
-
-            //console.log(objupdate);
-
-            Userinfo.findOneAndUpdate({ userid: req.params.userId }, { $set: objupdate }, { new: true }, function (err, user) {
-
-                if (err) {
-
-                    res.send(err);
-
-                } else {
-                    return res.json(user);
-                }
-
-            });
-
-        }
-    }).select('-__v');
-};
-*/
 
 
-/*
 exports.delete_user = function (req, res) {
 
-        User.findOneAndRemove({ username: req.body.username }, function (err, user) {
-            if (err) {
-                return res.send(err);
-            } else {
-                console.log(req.body.username);
-                Userinfo.findOneAndRemove({ userid: req.body.username }, function (err, userinfo) {
+    User.findOneAndRemove({ username: req.body.username }, function (err, user) {
+     if (err) {
+        return res.status(501).json(err);
+    }
 
-                    if (err) {
-                        return res.send(err);
-                    } else {
-                        return res.json({ success: "User deleted correctly" });
-                    }
+    fs.unlink('uploadedimages/'+req.body.img,  (err) => {
+        return res.status(201).json(user);
+        if(err){
+         console.log("failed to delete local image:"+err);
+     }else{
+        console.log('successfully deleted local image');
+    }    
+});
 
-                });
-            }
-        });
-        //Userinfo.remove({userId: req.params.userId});
-
-        //res.send({success: "User deleted sucessfully"});
+});
 
 };
-*/
-
-/*
-exports.sendimgcomplete = function(req, res){
-
-    console.log("file" + req.file);
-    res.send('Successfully uploaded!');
-
-}
-*/
 
 exports.sign_in = function (req, res) {
     User.findOne({

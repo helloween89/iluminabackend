@@ -36,10 +36,12 @@ let upload = multer({ storage: storage });
 
     app.route('/getusers')
         .get(user.loginRequired, user.getAllUsers);
-/*
-    app.route('/userdel/')
+
+    app.route('/getuserbyId')                                                                                                                                                  
+        .post(user.loginRequired, user.getUserById);
+
+    app.route('/userdel')
         .post(user.loginRequired, user.delete_user);
-        */
 
     /*
     app.route('/testimg')

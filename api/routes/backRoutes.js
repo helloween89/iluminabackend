@@ -42,10 +42,5 @@ let upload = multer({ storage: storage });
 
     app.route('/userdel')
         .post(user.loginRequired, user.delete_user);
-
-    /*
-    app.route('/testimg')
-        .post(upload.single('fbimg'),user.sendimgcomplete);
-        */
         
 };

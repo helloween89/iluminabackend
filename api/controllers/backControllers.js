@@ -11,29 +11,30 @@ Client = mongoose.model('ClientModel');
 let fs = require('fs');
 
 
-    exports.create_user = function (req, res) {
-        console.log("user: ", req.body);
-        let new_user = new User(req.body);
-        new_user.password = bcrypt.hashSync(req.body.password, 10);
-        new_user.img = req.file.filename;
-        console.log(new_user.img);
+exports.create_user = function (req, res) {
+    console.log("user: ", req.body);
+    let new_user = new User(req.body);
+    new_user.password = bcrypt.hashSync(req.body.password, 10);
+    new_user.img = req.file.filename;
+    console.log(new_user.img);
 
-        new_user.save(function (err, user) {
-            if (err) {
-                console.log(err);
-                return res.status(501).json(err);
-            } 
-            new_user.password = undefined;
-            return res.status(201).json(user);
-        });
+    new_user.save(function (err, user) {
+        if (err) {
+            console.log(err);
+            return res.status(501).json(err);
+        } 
+        new_user.password = undefined;
+        return res.status(201).json(user);
+    });
 
-    };
+};
 
 exports.update_user = function (req, res) {
 
     console.log("username", req.body.username);
     let encryptpass = bcrypt.hashSync(req.body.password, 10);
     let tuser = req.body.typeuser;
+
     let objupdate = {
         username: req.body.username,
         password: encryptpass,
@@ -41,19 +42,29 @@ exports.update_user = function (req, res) {
         img: req.file.filename
     }
 
-    User.findOneAndUpdate({ username: req.body.username }, { $set: objupdate }, { new: true }, function (err, user) {
+    User.find({username: req.body.username}, function (err, user) {
 
         if (err) {
-
             return res.status(501).json(err);
-
-        } else {
-
-            return res.status(201).json(user);
-
         }
 
-    });
+        User.update(objupdate, (err, usersaved) => {
+            if (err) {
+                res.status(500).send(err)
+            }
+
+            fs.unlink('uploadedimages/'+user[0].img,  (err) => {
+                res.status(200).send(usersaved);
+                if(err){
+                 console.log("failed to delete local image:"+err);
+             }else{
+                console.log('successfully deleted local image');
+            }      
+        });
+            
+      });
+
+    });    
 
 };
 
@@ -100,7 +111,7 @@ exports.getUserById = function (req, res) {
 exports.delete_user = function (req, res) {
 
     User.findOneAndRemove({ username: req.body.username }, function (err, user) {
-     if (err) {
+       if (err) {
         return res.status(501).json(err);
     }
 
@@ -110,7 +121,7 @@ exports.delete_user = function (req, res) {
          console.log("failed to delete local image:"+err);
      }else{
         console.log('successfully deleted local image');
-    }    
+    }      
 });
 
 });

@@ -22,6 +22,7 @@ export class HttpService {
 	private delete_user:String = "userdel";
 	private login:String = "auth/sign_in";
 	private userspath = "getusers";
+	private userbyid = "getuserbyid";
 	public token: string;
 	private uploader:FileUploader = new FileUploader({url: this.BASE_URL+this.create_user, itemAlias: 'img'});
 
@@ -41,6 +42,22 @@ export class HttpService {
 		return this.http.get(`${this.BASE_URL}`+this.userspath, options)
 		.map((res:Response) => res.json())
 		.catch((error:any) => Observable.throw(error.json() || 'Server error'));
+	}
+
+	public getUsers(username:String){
+
+		// add authorization header with jwt token
+		let header = new Headers({ 'Authorization': "JWT " + this.token });
+		let options = new RequestOptions({ headers: header });
+
+		let param = {
+			"username" : username,
+		}
+
+		return this.http.post(`${this.BASE_URL}`+this.userbyid, param, options)
+		.map((res:Response) => res.json())
+		.catch((error:any) => Observable.throw(error.json() || 'Server error'));
+
 	}
 
 	public addUser(body:UserModel, inputEl:File){
@@ -63,7 +80,7 @@ export class HttpService {
 		.catch((error:any) => Observable.throw(error.json() || 'Server error'));
 	}
 
-	public updateUser(body:UserModel, inputEl:HTMLInputElement) {
+	public updateUser(body:UserModel, inputEl:File) {
 
 		this.uploader.onAfterAddingFile = (file)=> { file.withCredentials = false; };
 		this.uploader.onCompleteItem = (item:any, response:any, status:any, headers:any) => {
@@ -78,7 +95,7 @@ export class HttpService {
         formData.append('username',body.username);
 		formData.append('password',body.password);
 		formData.append('typeuser',body.typeuser);
-		formData.append('img', inputEl.files.item(0));
+		formData.append('img', inputEl);
 
 		return this.http.post(`${this.BASE_URL}`+ this.update_user,formData, options)
 		.map((res:Response) => res.json())

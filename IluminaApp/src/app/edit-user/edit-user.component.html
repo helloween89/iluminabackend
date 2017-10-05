@@ -39,7 +39,7 @@
             <div class="file-field input-field form-control">
               <div class="btn">
                 <span>Picture</span>
-                <input type="file" id="img" />
+                <input type="file" id="img" (change)="onImageChange($event)" accept="image/*" />
               </div>
               <div class="file-path-wrapper">
                 <input class="file-path validate" type="text">

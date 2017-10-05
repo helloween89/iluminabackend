@@ -66,7 +66,7 @@ export class AddUserComponent {
 		this.modalActions2.emit({action:"modal",params:['close']});
 	}
 
-	onImageChange(event) : void {
+	public onImageChange(event) : void {
 		let image = event.target.files[0];
 
 		this.ng2ImgMax.resizeImage(image, 100, 80).subscribe(
@@ -75,9 +75,32 @@ export class AddUserComponent {
 				 console.log("img ",this.uploadedImage);
 			},
 			error => {
-				console.log('😢 Oh no!', error);
+				console.log('Error to upload the file', error);
 			}
 			);
+	}
+
+	public validateForm() :void {
+
+		let username = this.userModel.username;
+		let password = this.userModel.password;
+		let typeuser = this.userModel.typeuser;
+
+		if(username.length>=4 && password.length>=6 && typeuser.length>0 && this.uploadedImage !=undefined) {
+			this.addUser();
+		}else{
+
+			if(typeuser.length==0){
+
+				this.errorMesage = "Please select a kind of user";
+				this.OpenModalFail();
+			}else if(this.uploadedImage === undefined){
+				this.errorMesage = "Please select a picture";
+				this.OpenModalFail();
+			}
+
+		}
+
 	}
 
 }

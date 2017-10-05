@@ -62,4 +62,30 @@ export class addClientComponent implements OnInit {
 		this.modalActions2.emit({action:"modal",params:['close']});
 	}
 
+	public validateForm() :void {
+
+		let name = this.clientModel.name;
+		let status = this.clientModel.status;
+		let sex = this.clientModel.sex;
+		let age = this.clientModel.age;
+		let profession = this.clientModel.profession;
+
+		if(name.length>0 && status.length>0 && sex.length>0 && profession.length>0) {
+			this.addClient();
+		}else{
+
+			if(status.length==0){
+
+				this.errorMesage = "Please select your married status";
+				this.OpenModalFail();
+			}else if(sex.length==0){
+				this.errorMesage = "Please select your sex";
+				this.OpenModalFail();
+			}
+
+		}
+
+	}
+
+
 }

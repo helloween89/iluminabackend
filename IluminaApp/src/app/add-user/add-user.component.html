@@ -22,12 +22,19 @@
 			</div>
 			
 			<div class="row">
-				<select class="browser-default col m8 l8 xl8 offset-s2 offset-m2 offset-l2 offset-xl2 form-control" name="typeuser" [(ngModel)]="userModel.typeuser">
-					<option value="" disabled selected>Choose your option</option>
-					<option value="a1">Contrator</option>
-					<option value="a2">Regular</option>
-					<option value="admin">admin</option>
-				</select>
+
+				<div class="input-field col m8 l8 xl8 offset-s2 offset-m2 offset-l2 offset-xl2">
+
+					<select name="typeuser" materialize="material_select" [(ngModel)]="userModel.typeuser">
+
+						<option value="" disabled selected>Choose your option</option>
+						<option value="a1">Contrator</option>
+						<option value="a2">Regular</option>
+						<option value="admin">admin</option>
+
+					</select>
+
+				</div>
 
 			</div>
 
@@ -49,7 +56,7 @@
 
 			<div class="row">
 
-				<button class="btn waves-effect waves-light col m3 l3 xl3 offset-s2 offset-m4 offset-l4 offset-xl4" type="submit" name="action" (click)="addUser()">Register
+				<button class="btn waves-effect waves-light col m3 l3 xl3 offset-s2 offset-m4 offset-l4 offset-xl4" type="submit" name="action" (click)="validateForm()">Register
 					<i class="material-icons right">send</i>
 				</button>
 

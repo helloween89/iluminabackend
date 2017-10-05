@@ -14,20 +14,31 @@
 			</div>
 
 			<div class="row">
-				<select class="browser-default col m8 l8 xl8 offset-s2 offset-m2 offset-l2 offset-xl2" name="status" [(ngModel)]="clientModel.status">
-					<option value="" disabled selected>Choose your option</option>
-					<option value="single">Single</option>
-					<option value="married">Married</option>
-					<option value="divorced">Divorced</option>
-				</select>
+
+				<div class="input-field col m8 l8 xl8 offset-s2 offset-m2 offset-l2 offset-xl2">
+
+				<select  name="status" materialize="material_select" [(ngModel)]="clientModel.status">
+						<option value="" disabled selected>Choose your option</option>
+						<option value="single">Single</option>
+						<option value="married">Married</option>
+						<option value="divorced">Divorced</option>
+					</select>
+
+				</div>
+
 			</div>
 
 			<div class="row">
-				<select class="browser-default col m8 l8 xl8 offset-s2 offset-m2 offset-l2 offset-xl2" name="sex" [(ngModel)]="clientModel.sex">
-					<option value="" disabled selected>Choose your Gender</option>
-					<option value="male">Male</option>
-					<option value="female">Female</option>
-				</select>
+
+				<div class="input-field col m8 l8 xl8 offset-s2 offset-m2 offset-l2 offset-xl2">
+
+				<select name="sex" [(ngModel)]="clientModel.sex" materialize="material_select">
+						<option value="" disabled selected>Choose your Gender</option>
+						<option value="male">Male</option>
+						<option value="female">Female</option>
+					</select>
+				</div>
+
 			</div>
 			
 			<div class="row">
@@ -49,7 +60,7 @@
 			</div>
 
 			<div class="row">
-				<button class="btn waves-effect waves-light col m3 l3 xl4 offset-m3 offset-l3 offset-xl4" type="submit" name="action" (click)="addClient()">Submit
+				<button class="btn waves-effect waves-light col m3 l3 xl4 offset-m3 offset-l3 offset-xl4" type="submit" name="action" (click)="validateForm()">Submit
 					<i class="material-icons right">send</i>
 				</button>
 

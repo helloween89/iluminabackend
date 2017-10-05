@@ -19,13 +19,31 @@ export class SearchUserComponent implements OnInit {
   private pathimg: String = "http://localhost:3000/";
   private users: any = [];
   private datauser: any = [];
+  //private search:String;
   modalActions1 = new EventEmitter<string|MaterializeAction>();
 
 
   constructor(private httpService: HttpService) { }
 
-  public getUsers(): void {
+  public getAllUsers(): void {
     this.httpService.getAllUser().subscribe(
+      response => {
+        console.log(response);
+        this.users = response;
+        
+      },
+      error => {
+
+        this.errorMesage = error.message;
+        this.closeModalNo();
+
+      }
+    );
+  }
+
+  public getUsers(search:String): void {
+    this.users = [];
+    this.httpService.getUsers(search).subscribe(
       response => {
         console.log(response);
         this.users = response;
@@ -45,7 +63,7 @@ export class SearchUserComponent implements OnInit {
       response => {
         console.log(response);
         this.modalActions1.emit({action:"modal",params:['close']});
-        this.getUsers();
+        this.getAllUsers();
         //this.users = response;
       },
       error => {
@@ -64,7 +82,18 @@ export class SearchUserComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getUsers();
+    this.getAllUsers();
+  }
+
+  onChange(value){
+
+    if(value.length>=3){
+      this.getUsers(value);
+      //console.log("The user pressed more than 3 letters");
+    }else if(value.length<3){
+      this.getAllUsers();
+    }
+
   }
 
 }

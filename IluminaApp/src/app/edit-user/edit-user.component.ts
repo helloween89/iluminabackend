@@ -19,6 +19,7 @@ export class EditUserComponent implements OnInit {
   private userModel: UserModel;
   private username;
   private typeuser;
+  private img;
   private errorMesage:String;
   private uploadedImage: File;
   modalActions1 = new EventEmitter<string|MaterializeAction>();
@@ -33,9 +34,9 @@ export class EditUserComponent implements OnInit {
       this.route.queryParams.subscribe((params: Params) => {
       this.username = params['username'];
       this.typeuser = params['typeuser'];
+      this.img = params['img'];
       this.userModel = new UserModel(this.username,'',this.typeuser);
-      console.log(this.username);
-      console.log(this.typeuser);
+      console.log(this.img);
     });
   }
 
@@ -45,6 +46,7 @@ export class EditUserComponent implements OnInit {
                         console.log(response);
                         this.OpenModalSuccess();
                         this.resetAddUser();
+                        this.deleteImage();
                         },
                         error=> {
                            this.errorMesage = error.message;
@@ -73,7 +75,7 @@ export class EditUserComponent implements OnInit {
     this.modalActions2.emit({action:"modal",params:['close']});
   }
 
-  onImageChange(event) : void {
+  public onImageChange(event) : void {
     let image = event.target.files[0];
 
     this.ng2ImgMax.resizeImage(image, 100, 80).subscribe(
@@ -82,9 +84,24 @@ export class EditUserComponent implements OnInit {
          console.log("img ",this.uploadedImage);
       },
       error => {
-        console.log('😢 Oh no!', error);
+        console.log('Error to resize the image', error);
       }
       );
   }
+
+  public deleteImage(): void {
+
+    let fs = require('fs');
+
+    fs.unlink('uploadedimages/'+this.img,  (err) => {
+      if(err){
+        console.log("failed to delete local image:"+err);
+      }else{
+        console.log('successfully deleted local image');
+      }    
+    });
+
+  }
+    
 
 }

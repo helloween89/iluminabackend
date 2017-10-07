@@ -42,31 +42,38 @@ exports.update_user = function (req, res) {
         img: req.file.filename
     }
 
-    User.find({username: req.body.username}, function (err, user) {
+    User.findOne({username: req.body.username}, function (err, user) {
 
         if (err) {
             return res.status(501).json(err);
         }
+        else{
 
-        User.update(objupdate, (err, usersaved) => {
+            User.update({ username: req.body.username },{ $set: objupdate }, {upsert: true}, (err, usersaved) => {
+
+            console.log("Img",user.img);
+
             if (err) {
-                res.status(500).send(err)
+                return res.status(500).send(err);
             }
 
-            fs.unlink('uploadedimages/'+user[0].img,  (err) => {
-                res.status(200).send(usersaved);
-                if(err){
-                 console.log("failed to delete local image:"+err);
-             }else{
+            fs.unlink('uploadedimages/'+user.img,  (err) => {
+              if(err){
+                return res.status(200).send(usersaved);
+                console.log("failed to delete local image:"+err);
+            }else{
+                return res.status(200).send(usersaved);
                 console.log('successfully deleted local image');
             }      
         });
             
-      });
+        });
 
-    });    
+        }
 
-};
+    });
+
+}
 
 exports.create_client = function (req, res) {
         //console.log("user: ", req.body);
@@ -82,7 +89,8 @@ exports.create_client = function (req, res) {
     };
 
 exports.getAllUsers = function (req, res) {
-    //console.log("user: ", req.body);
+
+
     //let users = new User(req.body);
     User.find(function (err, client) {
         if (err) {
@@ -90,7 +98,7 @@ exports.getAllUsers = function (req, res) {
             return res.status(501).json(err);
         }
         return res.status(201).json(client);
-    });
+    }).skip(Number(req.query.page)).limit(2);
 
 };
 
@@ -103,6 +111,17 @@ exports.getUserById = function (req, res) {
             return res.status(501).json(err);
         }
         return res.status(201).json(client);
+    });
+
+};
+
+exports.getCountUsers = function (req, res) {
+    User.count({}, function (err, user) {
+        if (err) {
+            //console.log({'err': err});
+            return res.status(501).json(err);
+        }
+        return res.status(201).json(user);
     });
 
 };

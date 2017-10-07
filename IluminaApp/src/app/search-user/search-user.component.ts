@@ -19,23 +19,54 @@ export class SearchUserComponent implements OnInit {
   private pathimg: String = "http://localhost:3000/";
   private users: any = [];
   private datauser: any = [];
+  private userscount:any = [];
+  private pageuser:number = 0;
   //private search:String;
   modalActions1 = new EventEmitter<string|MaterializeAction>();
 
-
   constructor(private httpService: HttpService) { }
 
-  public getAllUsers(): void {
-    this.httpService.getAllUser().subscribe(
+  public getAllUsers(pageuser:number): void {
+
+
+    //this.pageuser = pageuser;
+
+    //console.log("Page",this.pageuser);
+
+    this.httpService.getAllUser(pageuser.toString()).subscribe(
       response => {
+
         console.log(response);
         this.users = response;
-        
+        this.getCountUsers();
+
       },
       error => {
 
         this.errorMesage = error.message;
         this.closeModalNo();
+
+      }
+    );
+  }
+
+  public getCountUsers(): void {
+    this.httpService.getCountUsers().subscribe(
+      response => {
+
+        console.log(response);
+        let count=0;
+        for(let i=0;i<response;i++){
+
+          if(i%2==0)
+            count++;
+            this.userscount[count] = count;
+        }
+        
+      },
+      error => {
+
+        console.log("Error","User count was not able to get");
 
       }
     );
@@ -63,7 +94,7 @@ export class SearchUserComponent implements OnInit {
       response => {
         console.log(response);
         this.modalActions1.emit({action:"modal",params:['close']});
-        this.getAllUsers();
+        this.getAllUsers(this.pageuser);
         //this.users = response;
       },
       error => {
@@ -82,7 +113,7 @@ export class SearchUserComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getAllUsers();
+    this.getAllUsers(this.pageuser);
   }
 
   onChange(value){
@@ -91,7 +122,7 @@ export class SearchUserComponent implements OnInit {
       this.getUsers(value);
       //console.log("The user pressed more than 3 letters");
     }else if(value.length<3){
-      this.getAllUsers();
+      this.getAllUsers(this.pageuser);
     }
 
   }

@@ -23,6 +23,7 @@ export class HttpService {
 	private login:String = "auth/sign_in";
 	private userspath = "getusers";
 	private userbyid = "getuserbyid";
+	private userscount = "getCountUsers";
 	public token: string;
 	private uploader:FileUploader = new FileUploader({url: this.BASE_URL+this.create_user, itemAlias: 'img'});
 
@@ -33,15 +34,21 @@ export class HttpService {
 
 	}
 
-	public getAllUser(){
+	public getAllUser(page:string){
+
+
+		let params: URLSearchParams = new URLSearchParams();
+		params.set('page', page);
 
 		// add authorization header with jwt token
 		let header = new Headers({ 'Authorization': "JWT " + this.token });
 		let options = new RequestOptions({ headers: header });
+		options.search = params;
 
 		return this.http.get(`${this.BASE_URL}`+this.userspath, options)
 		.map((res:Response) => res.json())
 		.catch((error:any) => Observable.throw(error.json() || 'Server error'));
+		
 	}
 
 	public getUsers(username:String){
@@ -55,6 +62,19 @@ export class HttpService {
 		}
 
 		return this.http.post(`${this.BASE_URL}`+this.userbyid, param, options)
+		.map((res:Response) => res.json())
+		.catch((error:any) => Observable.throw(error.json() || 'Server error'));
+
+	}
+
+	public getCountUsers() {
+
+		// add authorization header with jwt token
+		let header = new Headers({ 'Authorization': "JWT " + this.token });
+		let options = new RequestOptions({ headers: header });
+
+
+		return this.http.get(`${this.BASE_URL}`+this.userscount, options)
 		.map((res:Response) => res.json())
 		.catch((error:any) => Observable.throw(error.json() || 'Server error'));
 

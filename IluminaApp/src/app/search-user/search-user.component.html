@@ -60,6 +60,17 @@
 					</div>
 
 		</div>
-</body>
 
-</html>
+		<div class="col m8 l8 xl8 offset-s2 offset-m2 offset-l2 offset-xl2">
+
+			<ul class="pagination">
+				<ng-container *ngFor="let pag of userscount">
+				<li *ngIf="pag === 1" class="active cursor-hover" (click)="getAllUsers(0)"><a>{{pag}}</a></li>
+				<li *ngIf="pag != 1" class="cursor-hover"><a (click)="getAllUsers(pag*2-2)">{{pag}}</a></li>
+				</ng-container>
+			</ul>
+
+		</div>
+	</body>
+
+	</html>

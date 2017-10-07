@@ -37,6 +37,9 @@ let upload = multer({ storage: storage });
     app.route('/getusers')
         .get(user.loginRequired, user.getAllUsers);
 
+    app.route('/getCountUsers')
+        .get(user.loginRequired, user.getCountUsers);
+
     app.route('/getuserbyId')                                                                                                                                                  
         .post(user.loginRequired, user.getUserById);
 
